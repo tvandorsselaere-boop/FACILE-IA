@@ -53,8 +53,8 @@ const letters = [
       // Corps : de -h/2 (bas) à h/6 (laisser espace pour le point)
       const stem = capsule(px, py, 0, -h/2, 0, h/6, w * 1.1)
 
-      // Point : centré à h/3 (espace visible entre corps et point)
-      const dotCenterY = h/3
+      // Point : centré à h/2.8 (légèrement plus haut)
+      const dotCenterY = h/2.8
       const dotRadius = w * 1.2  // Un peu plus gros pour visibilité
       const dx = px - 0
       const dy = py - dotCenterY
@@ -86,8 +86,8 @@ const letters = [
       // Corps : de -h/2 (bas) à h/6 (laisser espace pour le point)
       const stem = capsule(px, py, 0, -h/2, 0, h/6, w * 1.1)
 
-      // Point : centré à h/3 (espace visible entre corps et point)
-      const dotCenterY = h/3
+      // Point : centré à h/2.8 (légèrement plus haut)
+      const dotCenterY = h/2.8
       const dotRadius = w * 1.2  // Un peu plus gros pour visibilité
       const dx = px - 0
       const dy = py - dotCenterY
@@ -157,7 +157,7 @@ export function LogoHero() {
       renderer.setClearColor(0x000000, 0)
 
       // Générer particules pour cette lettre UNIQUEMENT
-      const numParticles = 2000  // 2000 par lettre = 18000 total
+      const numParticles = letter.char === 'I' ? 1200 : 2000  // Moins dense pour les i
       const thickness = 0.1
       const w = 0.04
       const h = 0.6
