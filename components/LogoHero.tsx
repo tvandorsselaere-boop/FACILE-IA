@@ -21,7 +21,7 @@ const letters = [
   },
   { char: 'C', distFn: (px: number, py: number, w: number, h: number) => {
       const radius = h / 2.2
-      const thickness = w * 3.5  // Épaisseur de la barre
+      const thickness = w * 2.5  // Épaisseur réduite de la barre
       const centerX = 0
       const centerY = 0
 
