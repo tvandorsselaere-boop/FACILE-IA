@@ -20,8 +20,8 @@ const letters = [
     }
   },
   { char: 'C', distFn: (px: number, py: number, w: number, h: number) => {
-      // "C" ouvert à droite : arc de 270° (45° à 315°)
       const radius = h / 2.2
+      const thickness = w * 3.5  // Épaisseur de la barre
       const centerX = 0
       const centerY = 0
 
@@ -31,25 +31,24 @@ const letters = [
       const angle = Math.atan2(dy, dx)
 
       // Arc ouvert : 45° (haut-droit) à 315° (bas-droit)
-      const startAngle = Math.PI * 0.25  // 45°
-      const endAngle = Math.PI * 1.75    // 315°
+      const startAngle = Math.PI * 0.25   // 45°
+      const endAngle = Math.PI * 1.75     // 315°
 
       // Vérifier si le point est dans l'arc (270°)
-      let inArc = true
-      if (angle < startAngle || angle > endAngle) {
-        inArc = false
+      let inArc = false
+      if (angle >= startAngle && angle <= endAngle) {
+        inArc = true
       }
 
       if (!inArc) {
         return 1000 // Point hors de l'arc
       }
 
-      // Distance à l'arc extérieur
-      const outer = dist - radius
-      // Distance à l'arc intérieur (épaisseur)
-      const inner = (radius - w) - dist
+      // Distance au cercle moyen
+      const distToRing = Math.abs(dist - radius)
 
-      return Math.max(outer, inner)
+      // Si on est proche du cercle (dans l'épaisseur), c'est bon
+      return distToRing - thickness / 2
     }
   },
   { char: 'I', distFn: (px: number, py: number, w: number, h: number) => {
