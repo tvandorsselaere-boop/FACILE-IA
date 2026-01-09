@@ -20,29 +20,28 @@ const letters = [
     }
   },
   { char: 'C', distFn: (px: number, py: number, w: number, h: number) => {
-      // Courbe arrondie naturelle pour le "C"
+      // "C" ouvert à droite : arc de 270° (45° à 315°)
       const radius = h / 2.2
       const centerX = 0
       const centerY = 0
 
-      // Distance au centre
       const dx = px - centerX
       const dy = py - centerY
       const dist = Math.sqrt(dx * dx + dy * dy)
-
-      // Angle en radians
       const angle = Math.atan2(dy, dx)
 
-      // Arc de cercle de 45° à 315° (270° d'arc)
+      // Arc ouvert : 45° (haut-droit) à 315° (bas-droit)
       const startAngle = Math.PI * 0.25  // 45°
       const endAngle = Math.PI * 1.75    // 315°
 
-      // Vérifier si le point est dans l'arc
-      let angleDist = 0
-      if (angle < startAngle) {
-        angleDist = Math.abs(angle - startAngle)
-      } else if (angle > endAngle) {
-        angleDist = Math.abs(angle - endAngle)
+      // Vérifier si le point est dans l'arc (270°)
+      let inArc = true
+      if (angle < startAngle || angle > endAngle) {
+        inArc = false
+      }
+
+      if (!inArc) {
+        return 1000 // Point hors de l'arc
       }
 
       // Distance à l'arc extérieur
@@ -50,19 +49,18 @@ const letters = [
       // Distance à l'arc intérieur (épaisseur)
       const inner = (radius - w) - dist
 
-      const ring = Math.max(outer, inner)
-      return Math.max(ring, -angleDist * radius * 0.5)
+      return Math.max(outer, inner)
     }
   },
   { char: 'I', distFn: (px: number, py: number, w: number, h: number) => {
-      // Corps vertical du "i"
-      const stem = capsule(px, py, 0, -h/2, 0, h/2, w * 1.1)
+      // "i" avec point intégré : corps + gap + point
+      const stem = capsule(px, py, 0, -h/2, 0, h/3, w * 1.1) // Corps vertical (2/3 haut)
 
-      // Point circulaire au-dessus
-      const dotY = -h/2 - h * 0.25  // Position Y du point (au-dessus du corps)
-      const dotRadius = w * 1.2     // Rayon du point
-      const dx = px - 0             // Centre horizontal du point
-      const dy = py - dotY          // Centre vertical du point
+      // Point circulaire dans le gap (tiers supérieur)
+      const dotCenterY = h/6  // Centre du point (dans le gap)
+      const dotRadius = w * 0.8
+      const dx = px - 0
+      const dy = py - dotCenterY
       const dotDist = Math.sqrt(dx * dx + dy * dy)
       const dot = dotDist - dotRadius
 
@@ -88,14 +86,14 @@ const letters = [
   }
   },
   { char: 'I', distFn: (px: number, py: number, w: number, h: number) => {
-      // Corps vertical du "i"
-      const stem = capsule(px, py, 0, -h/2, 0, h/2, w * 1.1)
+      // "i" avec point intégré : corps + gap + point
+      const stem = capsule(px, py, 0, -h/2, 0, h/3, w * 1.1) // Corps vertical (2/3 haut)
 
-      // Point circulaire au-dessus
-      const dotY = -h/2 - h * 0.25  // Position Y du point (au-dessus du corps)
-      const dotRadius = w * 1.2     // Rayon du point
-      const dx = px - 0             // Centre horizontal du point
-      const dy = py - dotY          // Centre vertical du point
+      // Point circulaire dans le gap (tiers supérieur)
+      const dotCenterY = h/6  // Centre du point (dans le gap)
+      const dotRadius = w * 0.8
+      const dx = px - 0
+      const dy = py - dotCenterY
       const dotDist = Math.sqrt(dx * dx + dy * dy)
       const dot = dotDist - dotRadius
 
@@ -135,16 +133,18 @@ export function LogoHero() {
     const container = containerRef.current
     const scenes: any[] = []
 
-    // Largeur totale divisée en 9
+    // Largeur totale divisée en 7 (au lieu de 9) pour plus d'espacement
     const totalWidth = container.clientWidth
-    const cellWidth = totalWidth / 9
+    const cellWidth = totalWidth / 7  // Élargi de 9 à 7 divisions
     const cellHeight = container.clientHeight
 
-    // Créer 9 canvas (un par lettre)
+    // Créer 9 canvas (un par lettre) avec espacement élargi
     letters.forEach((letter, index) => {
       const canvas = document.createElement('canvas')
       canvas.style.position = 'absolute'
-      canvas.style.left = `${index * cellWidth}px`
+      // Centrer le logo avec le nouvel espacement (7 divisions pour 9 lettres)
+      const startOffset = (totalWidth - 9 * cellWidth) / 2
+      canvas.style.left = `${startOffset + index * cellWidth}px`
       canvas.style.top = '0'
       canvas.style.width = `${cellWidth}px`
       canvas.style.height = `${cellHeight}px`
