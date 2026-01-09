@@ -30,18 +30,16 @@ const letters = [
       const dist = Math.sqrt(dx * dx + dy * dy)
       const angle = Math.atan2(dy, dx)
 
-      // Arc ouvert : 45° (haut-droit) à 315° (bas-droit)
-      const startAngle = Math.PI * 0.25   // 45°
-      const endAngle = Math.PI * 1.75     // 315°
-
-      // Vérifier si le point est dans l'arc (270°)
-      let inArc = false
-      if (angle >= startAngle && angle <= endAngle) {
-        inArc = true
+      // ✅ CORRECTION ICI : Exclure seulement la partie droite
+      // Math.atan2 retourne des valeurs entre -π et π
+      // On veut TOUT SAUF la zone de -45° à 45° (ouverture droite)
+      let inArc = true
+      if (angle > -Math.PI * 0.25 && angle < Math.PI * 0.25) {
+        inArc = false  // Exclure de -45° à 45°
       }
 
       if (!inArc) {
-        return 1000 // Point hors de l'arc
+        return 1000
       }
 
       // Distance au cercle moyen
