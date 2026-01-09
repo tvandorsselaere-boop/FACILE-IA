@@ -53,12 +53,12 @@ const letters = [
     }
   },
   { char: 'I', distFn: (px: number, py: number, w: number, h: number) => {
-      // "i" avec point intégré : corps + gap + point
-      const stem = capsule(px, py, 0, -h/2, 0, h/3, w * 1.1) // Corps vertical (2/3 haut)
+      // Corps : de -h/2 (bas) à -h/6 (milieu bas)
+      const stem = capsule(px, py, 0, -h/2, 0, -h/6, w * 1.1)
 
-      // Point circulaire dans le gap (tiers supérieur)
-      const dotCenterY = h/6  // Centre du point (dans le gap)
-      const dotRadius = w * 0.8
+      // Point : centré à h/4 (partie haute)
+      const dotCenterY = h/4
+      const dotRadius = w * 1.2  // Un peu plus gros pour visibilité
       const dx = px - 0
       const dy = py - dotCenterY
       const dotDist = Math.sqrt(dx * dx + dy * dy)
@@ -86,12 +86,12 @@ const letters = [
   }
   },
   { char: 'I', distFn: (px: number, py: number, w: number, h: number) => {
-      // "i" avec point intégré : corps + gap + point
-      const stem = capsule(px, py, 0, -h/2, 0, h/3, w * 1.1) // Corps vertical (2/3 haut)
+      // Corps : de -h/2 (bas) à -h/6 (milieu bas)
+      const stem = capsule(px, py, 0, -h/2, 0, -h/6, w * 1.1)
 
-      // Point circulaire dans le gap (tiers supérieur)
-      const dotCenterY = h/6  // Centre du point (dans le gap)
-      const dotRadius = w * 0.8
+      // Point : centré à h/4 (partie haute)
+      const dotCenterY = h/4
+      const dotRadius = w * 1.2  // Un peu plus gros pour visibilité
       const dx = px - 0
       const dy = py - dotCenterY
       const dotDist = Math.sqrt(dx * dx + dy * dy)
