@@ -113,7 +113,7 @@ export function Header() {
                 {/* Link AVANT (flip vers le haut) */}
                 <motion.a
                   href={item.href}
-                  className="relative overflow-hidden group flex items-center gap-2 px-4 py-2 z-10 bg-white/10 backdrop-blur-md border border-white/20 text-muted-foreground group-hover:text-foreground transition-colors rounded-xl"
+                  className="flex items-center gap-2 px-4 py-2 relative z-10 bg-transparent text-muted-foreground group-hover:text-foreground transition-colors rounded-xl"
                   variants={itemVariants}
                   transition={sharedTransition}
                   style={{
@@ -136,7 +136,7 @@ export function Header() {
                 {/* Link ARRIÈRE (flip depuis le haut) */}
                 <motion.a
                   href={item.href}
-                  className="relative overflow-hidden group flex items-center gap-2 px-4 py-2 absolute inset-0 z-10 bg-white/10 backdrop-blur-md border border-white/20 text-foreground transition-colors rounded-xl"
+                  className="flex items-center gap-2 px-4 py-2 absolute inset-0 z-10 bg-transparent text-foreground transition-colors rounded-xl"
                   variants={backVariants}
                   transition={sharedTransition}
                   style={{

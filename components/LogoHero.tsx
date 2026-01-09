@@ -20,19 +20,53 @@ const letters = [
     }
   },
   { char: 'C', distFn: (px: number, py: number, w: number, h: number) => {
-      const radius = h / 2
-      const outer_dist = Math.sqrt(px * px + py * py)
-      const outer = outer_dist - radius
-      const inner_radius = radius - w
-      const inner = inner_radius - outer_dist
+      // Courbe arrondie naturelle pour le "C"
+      const radius = h / 2.2
+      const centerX = 0
+      const centerY = 0
+
+      // Distance au centre
+      const dx = px - centerX
+      const dy = py - centerY
+      const dist = Math.sqrt(dx * dx + dy * dy)
+
+      // Angle en radians
+      const angle = Math.atan2(dy, dx)
+
+      // Arc de cercle de 45° à 315° (270° d'arc)
+      const startAngle = Math.PI * 0.25  // 45°
+      const endAngle = Math.PI * 1.75    // 315°
+
+      // Vérifier si le point est dans l'arc
+      let angleDist = 0
+      if (angle < startAngle) {
+        angleDist = Math.abs(angle - startAngle)
+      } else if (angle > endAngle) {
+        angleDist = Math.abs(angle - endAngle)
+      }
+
+      // Distance à l'arc extérieur
+      const outer = dist - radius
+      // Distance à l'arc intérieur (épaisseur)
+      const inner = (radius - w) - dist
+
       const ring = Math.max(outer, inner)
-      const opening_x = -radius * 0.3
-      const opening = (px - opening_x)
-      return Math.max(ring, opening)
+      return Math.max(ring, -angleDist * radius * 0.5)
     }
   },
   { char: 'I', distFn: (px: number, py: number, w: number, h: number) => {
-      return capsule(px, py, 0, -h/2, 0, h/2, w * 1.1)
+      // Corps vertical du "i"
+      const stem = capsule(px, py, 0, -h/2, 0, h/2, w * 1.1)
+
+      // Point circulaire au-dessus
+      const dotY = -h/2 - h * 0.25  // Position Y du point (au-dessus du corps)
+      const dotRadius = w * 1.2     // Rayon du point
+      const dx = px - 0             // Centre horizontal du point
+      const dy = py - dotY          // Centre vertical du point
+      const dotDist = Math.sqrt(dx * dx + dy * dy)
+      const dot = dotDist - dotRadius
+
+      return Math.min(stem, dot)
     }
   },
   { char: 'L', distFn: (px: number, py: number, w: number, h: number) => {
@@ -54,7 +88,18 @@ const letters = [
   }
   },
   { char: 'I', distFn: (px: number, py: number, w: number, h: number) => {
-      return capsule(px, py, 0, -h/2, 0, h/2, w * 1.1)
+      // Corps vertical du "i"
+      const stem = capsule(px, py, 0, -h/2, 0, h/2, w * 1.1)
+
+      // Point circulaire au-dessus
+      const dotY = -h/2 - h * 0.25  // Position Y du point (au-dessus du corps)
+      const dotRadius = w * 1.2     // Rayon du point
+      const dx = px - 0             // Centre horizontal du point
+      const dy = py - dotY          // Centre vertical du point
+      const dotDist = Math.sqrt(dx * dx + dy * dy)
+      const dot = dotDist - dotRadius
+
+      return Math.min(stem, dot)
     }
   },
   { char: 'A', distFn: (px: number, py: number, w: number, h: number) => {

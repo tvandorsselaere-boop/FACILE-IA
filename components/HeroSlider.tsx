@@ -109,15 +109,15 @@ export function HeroSlider() {
             >
               <div className={`rounded-full transition-all duration-300 ${
                 isActive
-                  ? 'w-3 h-3 bg-white/10 backdrop-blur-md border border-white/20'
-                  : 'w-2 h-2 bg-white/10 backdrop-blur-md border border-white/20 group-hover:bg-white/20 group-hover:w-2.5 group-hover:h-2.5'
+                  ? 'w-3 h-3 bg-blue-400 border-2 border-blue-300'
+                  : 'w-2 h-2 bg-blue-400/30 border border-blue-400/20 group-hover:bg-blue-400/60 group-hover:w-2.5 group-hover:h-2.5'
               }`} />
 
-              {/* Glow bleu pour tous - derrière le verre */}
-              <div className={`absolute inset-0 rounded-full transition-all duration-300 -z-10 ${
+              {/* Glow bleu pour tous */}
+              <div className={`absolute inset-0 rounded-full transition-all duration-300 ${
                 isActive
-                  ? 'bg-[radial-gradient(circle,rgba(59,130,246,0.4)_0%,transparent_70%)] opacity-100'
-                  : 'bg-[radial-gradient(circle,rgba(59,130,246,0.4)_0%,transparent_70%)] opacity-0 group-hover:opacity-100'
+                  ? 'shadow-[0_0_20px_rgba(59,130,246,0.9),0_0_40px_rgba(59,130,246,0.5)]'
+                  : 'shadow-[0_0_8px_rgba(59,130,246,0.0)] group-hover:shadow-[0_0_15px_rgba(59,130,246,0.8)]'
               }`} />
             </button>
           )
