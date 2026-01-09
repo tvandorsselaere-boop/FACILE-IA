@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { motion, type Variants } from "framer-motion"
 import { Home, Briefcase, Layers, User, Sun, Moon } from "lucide-react"
 import { useTheme } from "next-themes"
+import { cn } from "@/lib/utils"
 
 interface MenuItem {
   icon: typeof Home
@@ -120,7 +121,13 @@ export function Header() {
                     transformOrigin: "center bottom"
                   }}
                 >
-                  <span className={`transition-colors duration-300 group-hover:${item.iconColor}`}>
+                  <span className={cn(
+                    "transition-colors duration-300",
+                    item.label === "Accueil" && "group-hover:text-red-500",
+                    item.label === "Services" && "group-hover:text-orange-500",
+                    item.label === "Le Lab" && "group-hover:text-purple-500",
+                    item.label === "À Propos" && "group-hover:text-blue-500"
+                  )}>
                     <item.icon className="h-4 w-4" />
                   </span>
                   <span className="text-sm font-medium">{item.label}</span>
@@ -152,12 +159,7 @@ export function Header() {
   <button
     onClick={() => {
       const newTheme = theme === "dark" ? "light" : "dark"
-      console.log("Current theme:", theme, "Setting to:", newTheme)
       setTheme(newTheme)
-      // Force update après un court délai
-      setTimeout(() => {
-        console.log("Theme after change:", document.documentElement.classList.contains('dark') ? 'dark' : 'light')
-      }, 100)
     }}
     className="flex items-center justify-center w-10 h-10 text-blue-400 transition-colors rounded-xl backdrop-blur-2xl border border-white/30 shadow-2xl transition-all duration-500 hover:border-white/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.5),0_0_60px_rgba(59,130,246,0.3),0_0_25px_rgba(59,130,246,0.9)] hover:scale-105"
     style={{
