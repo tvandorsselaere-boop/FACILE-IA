@@ -40,8 +40,8 @@ const items: MenuItem[] = [
     icon: User, 
     label: "À Propos", 
     href: "/about", 
-    gradient: "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)",
-    iconColor: "text-red-500"
+    gradient: "radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(37,99,235,0.06) 50%, rgba(29,78,216,0) 100%)",
+    iconColor: "text-blue-500"
   },
 ]
 
@@ -126,7 +126,7 @@ export function Header() {
                     item.label === "Accueil" && "group-hover:text-red-500",
                     item.label === "Services" && "group-hover:text-orange-500",
                     item.label === "Le Lab" && "group-hover:text-purple-500",
-                    item.label === "À Propos" && "group-hover:text-red-500"
+                    item.label === "À Propos" && "group-hover:text-blue-500"
                   )}>
                     <item.icon className="h-4 w-4" />
                   </span>
@@ -161,12 +161,12 @@ export function Header() {
       const newTheme = theme === "dark" ? "light" : "dark"
       setTheme(newTheme)
     }}
-    className="flex items-center justify-center w-10 h-10 text-red-400 transition-colors rounded-xl backdrop-blur-2xl border border-white/30 shadow-2xl transition-all duration-500 hover:border-white/50 hover:shadow-[0_0_30px_rgba(239,68,68,0.5),0_0_60px_rgba(239,68,68,0.3),0_0_25px_rgba(239,68,68,0.9)] hover:scale-105"
+    className="flex items-center justify-center w-10 h-10 text-blue-400 transition-colors rounded-xl backdrop-blur-2xl border border-white/30 shadow-2xl transition-all duration-500 hover:border-white/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.5),0_0_60px_rgba(59,130,246,0.3),0_0_25px_rgba(59,130,246,0.9)] hover:scale-105"
     style={{
       background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 50%, rgba(0,0,0,0.02) 100%)',
       backdropFilter: 'blur(20px) saturate(180%) brightness(110%)',
       WebkitBackdropFilter: 'blur(20px) saturate(180%) brightness(110%)',
-      boxShadow: '0 4px 16px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(239,68,68,0.15)'
+      boxShadow: '0 4px 16px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(59,130,246,0.15)'
     }}
     aria-label="Toggle theme"
   >
@@ -177,7 +177,7 @@ export function Header() {
         <Moon className="h-5 w-5 drop-shadow-md" />
       )
     ) : (
-      <div className="h-5 w-5 bg-red-400/30 rounded-full animate-pulse" />
+      <div className="h-5 w-5 bg-blue-400/30 rounded-full animate-pulse" />
     )}
   </button>
 </motion.li>
