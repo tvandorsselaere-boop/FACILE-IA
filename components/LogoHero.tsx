@@ -50,11 +50,11 @@ const letters = [
     }
   },
   { char: 'I', distFn: (px: number, py: number, w: number, h: number) => {
-      // Corps : de -h/2 (bas) à h/6 (laisser espace pour le point)
-      const stem = capsule(px, py, 0, -h/2, 0, h/6, w * 1.1)
+      // Corps : de -h/2 (bas) à h/8 (espace légèrement augmenté)
+      const stem = capsule(px, py, 0, -h/2, 0, h/8, w * 1.1)
 
-      // Point : centré à h/2.8 (légèrement plus haut)
-      const dotCenterY = h/2.8
+      // Point : centré à h/2.7 (position ajustée)
+      const dotCenterY = h/2.7
       const dotRadius = w * 1.2  // Un peu plus gros pour visibilité
       const dx = px - 0
       const dy = py - dotCenterY
@@ -83,11 +83,11 @@ const letters = [
   }
   },
   { char: 'I', distFn: (px: number, py: number, w: number, h: number) => {
-      // Corps : de -h/2 (bas) à h/6 (laisser espace pour le point)
-      const stem = capsule(px, py, 0, -h/2, 0, h/6, w * 1.1)
+      // Corps : de -h/2 (bas) à h/8 (espace légèrement augmenté)
+      const stem = capsule(px, py, 0, -h/2, 0, h/8, w * 1.1)
 
-      // Point : centré à h/2.8 (légèrement plus haut)
-      const dotCenterY = h/2.8
+      // Point : centré à h/2.7 (position ajustée)
+      const dotCenterY = h/2.7
       const dotRadius = w * 1.2  // Un peu plus gros pour visibilité
       const dx = px - 0
       const dy = py - dotCenterY
