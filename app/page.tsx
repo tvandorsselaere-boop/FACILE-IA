@@ -19,11 +19,6 @@ export default function Home() {
       if (scrollY > 100 && !hasScrolledOnce) {
         setHasScrolledOnce(true)
         setIsScrolled(true)
-        // Empêcher le scroll vers le haut
-        document.body.style.overflow = 'hidden'
-        setTimeout(() => {
-          document.body.style.overflow = 'auto'
-        }, 1000)
       } else if (scrollY > 100) {
         setIsScrolled(true)
       }
@@ -31,7 +26,7 @@ export default function Home() {
 
     // Empêcher le scroll vers le haut une fois qu'on a scrollé
     const preventScrollUp = (e: WheelEvent) => {
-      if (hasScrolledOnce && e.deltaY < 0 && window.scrollY <= 100) {
+      if (hasScrolledOnce && e.deltaY < 0 && window.scrollY <= window.innerHeight) {
         e.preventDefault()
       }
     }
@@ -46,24 +41,26 @@ export default function Home() {
   }, [hasScrolledOnce])
 
   const scrollToInfo = () => {
+    setHasScrolledOnce(true)
+    setIsScrolled(true)
     infoSectionRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
     <>
-      {/* Header avec menu et logo particules */}
+      {/* Header avec menu - apparaît seulement après scroll */}
       <Header isScrolled={isScrolled} />
 
-      {/* Logo central particules - animé vers le header */}
+      {/* Logo particules animé - du centre vers header gauche */}
       <motion.div
         initial={{ opacity: 1, y: 0, scale: 1, x: 0 }}
         animate={
           isScrolled
             ? {
                 opacity: 1,
-                y: -80,
-                x: -window.innerWidth / 2 + 150,
-                scale: 0.25,
+                y: -140,
+                x: typeof window !== 'undefined' ? -window.innerWidth / 2 + 180 : -400,
+                scale: 0.15,
               }
             : {
                 opacity: 1,
@@ -85,7 +82,7 @@ export default function Home() {
       {/* Slider en dessous */}
       <HeroSlider />
 
-      {/* Bouton scroll down */}
+      {/* Bouton scroll down - visible seulement avant le scroll */}
       <motion.button
         onClick={scrollToInfo}
         initial={{ opacity: 0, y: 20 }}

@@ -90,220 +90,116 @@ export function Header({ isScrolled = false }: HeaderProps) {
     setMounted(true)
   }, [])
 
+  // Ne pas afficher le header tant qu'on n'a pas scrollé
+  if (!isScrolled) {
+    return null
+  }
+
   return (
-    <header 
-      className={cn(
-        "fixed z-[100] transition-all duration-500",
-        isScrolled 
-          ? "top-4 left-4 right-4" 
-          : "top-8 left-1/2 -translate-x-1/2"
-      )}
-    >
-      <motion.nav 
-        layout
-        className={cn(
-          "flex items-center backdrop-blur-xl border border-white/20 shadow-lg relative overflow-hidden transition-all duration-500",
-          isScrolled 
-            ? "justify-end px-4 py-2 rounded-2xl bg-white/10 dark:bg-white/5" 
-            : "gap-4 px-6 py-3 rounded-2xl bg-white/10 dark:bg-white/5"
-        )}
-      >
-        {/* Menu - centré quand pas scrollé, à droite quand scrollé */}
-        <AnimatePresence>
-          {isScrolled ? (
-            <motion.ul 
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 50 }}
-              transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
-              className="flex items-center gap-2 relative z-10"
-            >
-              {items.map((item) => (
-                <motion.li key={item.label} className="relative">
-                  <motion.div
-                    className="block rounded-xl overflow-visible group relative"
-                    style={{ perspective: "600px" }}
-                    whileHover="hover"
-                    initial="initial"
-                  >
-                    {/* Glow individuel par item */}
-                    <motion.div
-                      className="absolute inset-0 z-0 pointer-events-none"
-                      variants={glowVariants}
-                      transition={glowTransition}
-                      style={{
-                        background: item.gradient,
-                        opacity: 0,
-                        borderRadius: "12px",
-                      }}
-                    />
-                    
-                    {/* Link AVANT (flip vers le haut) */}
-                    <motion.a
-                      href={item.href}
-                      className="flex items-center gap-2 px-4 py-2 relative z-10 bg-transparent text-muted-foreground group-hover:text-foreground transition-colors rounded-xl"
-                      variants={itemVariants}
-                      transition={sharedTransition}
-                      style={{
-                        transformStyle: "preserve-3d",
-                        transformOrigin: "center bottom"
-                      }}
-                    >
-                      <span className={cn(
-                        "transition-colors duration-300",
-                        item.label === "Accueil" && "group-hover:text-red-500",
-                        item.label === "Services" && "group-hover:text-orange-500",
-                        item.label === "Le Lab" && "group-hover:text-purple-500",
-                        item.label === "À Propos" && "group-hover:text-blue-500"
-                      )}>
-                        <item.icon className="h-4 w-4" />
-                      </span>
-                      <span className="text-sm font-medium">{item.label}</span>
-                    </motion.a>
-                    
-                    {/* Link ARRIÈRE (flip depuis le haut) */}
-                    <motion.a
-                      href={item.href}
-                      className="flex items-center gap-2 px-4 py-2 absolute inset-0 z-10 bg-transparent text-foreground transition-colors rounded-xl"
-                      variants={backVariants}
-                      transition={sharedTransition}
-                      style={{
-                        transformStyle: "preserve-3d",
-                        transformOrigin: "center top",
-                        rotateX: 90
-                      }}
-                    >
-                      <span className={`transition-colors duration-300 ${item.iconColor}`}>
-                        <item.icon className="h-4 w-4" />
-                      </span>
-                      <span className="text-sm font-medium">{item.label}</span>
-                    </motion.a>
-                  </motion.div>
-                </motion.li>
-              ))}
-              
-              {/* BOUTON DARK/LIGHT MODE */}
-              <motion.li className="relative ml-2">
-                <button
-                  onClick={() => {
-                    const newTheme = theme === "dark" ? "light" : "dark"
-                    setTheme(newTheme)
-                  }}
-                  className="flex items-center justify-center w-10 h-10 text-blue-400 transition-colors rounded-xl backdrop-blur-2xl border border-white/30 shadow-2xl transition-all duration-500 hover:border-white/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.5),0_0_60px_rgba(59,130,246,0.3),0_0_25px_rgba(59,130,246,0.9)] hover:scale-105"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 50%, rgba(0,0,0,0.02) 100%)',
-                    backdropFilter: 'blur(20px) saturate(180%) brightness(110%)',
-                    WebkitBackdropFilter: 'blur(20px) saturate(180%) brightness(110%)',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(59,130,246,0.15)'
-                  }}
-                  aria-label="Toggle theme"
+    <header className="fixed top-4 right-4 z-[100]">
+      <AnimatePresence>
+        <motion.nav 
+          initial={{ opacity: 0, x: 100, scale: 0.8 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          exit={{ opacity: 0, x: 100, scale: 0.8 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="flex items-center gap-4 px-6 py-3 rounded-2xl bg-white/10 dark:bg-white/5 backdrop-blur-xl border border-white/20 shadow-lg relative overflow-hidden"
+        >
+          <ul className="flex items-center gap-2 relative z-10">
+            {items.map((item) => (
+              <motion.li key={item.label} className="relative">
+                <motion.div
+                  className="block rounded-xl overflow-visible group relative"
+                  style={{ perspective: "600px" }}
+                  whileHover="hover"
+                  initial="initial"
                 >
-                  {mounted ? (
-                    theme === "dark" ? (
-                      <Sun className="h-5 w-5 drop-shadow-md" />
-                    ) : (
-                      <Moon className="h-5 w-5 drop-shadow-md" />
-                    )
-                  ) : (
-                    <div className="h-5 w-5 bg-blue-400/30 rounded-full animate-pulse" />
-                  )}
-                </button>
-              </motion.li>
-            </motion.ul>
-          ) : (
-            /* Menu centré quand pas scrollé - uniquement le toggle dark/light */
-            <ul className="flex items-center gap-2 relative z-10">
-              {items.map((item) => (
-                <motion.li key={item.label} className="relative">
+                  {/* Glow individuel par item */}
                   <motion.div
-                    className="block rounded-xl overflow-visible group relative"
-                    style={{ perspective: "600px" }}
-                    whileHover="hover"
-                    initial="initial"
+                    className="absolute inset-0 z-0 pointer-events-none"
+                    variants={glowVariants}
+                    transition={glowTransition}
+                    style={{
+                      background: item.gradient,
+                      opacity: 0,
+                      borderRadius: "12px",
+                    }}
+                  />
+                  
+                  {/* Link AVANT (flip vers le haut) */}
+                  <motion.a
+                    href={item.href}
+                    className="flex items-center gap-2 px-4 py-2 relative z-10 bg-transparent text-muted-foreground group-hover:text-foreground transition-colors rounded-xl"
+                    variants={itemVariants}
+                    transition={sharedTransition}
+                    style={{
+                      transformStyle: "preserve-3d",
+                      transformOrigin: "center bottom"
+                    }}
                   >
-                    <motion.div
-                      className="absolute inset-0 z-0 pointer-events-none"
-                      variants={glowVariants}
-                      transition={glowTransition}
-                      style={{
-                        background: item.gradient,
-                        opacity: 0,
-                        borderRadius: "12px",
-                      }}
-                    />
-                    
-                    <motion.a
-                      href={item.href}
-                      className="flex items-center gap-2 px-4 py-2 relative z-10 bg-transparent text-muted-foreground group-hover:text-foreground transition-colors rounded-xl"
-                      variants={itemVariants}
-                      transition={sharedTransition}
-                      style={{
-                        transformStyle: "preserve-3d",
-                        transformOrigin: "center bottom"
-                      }}
-                    >
-                      <span className={cn(
-                        "transition-colors duration-300",
-                        item.label === "Accueil" && "group-hover:text-red-500",
-                        item.label === "Services" && "group-hover:text-orange-500",
-                        item.label === "Le Lab" && "group-hover:text-purple-500",
-                        item.label === "À Propos" && "group-hover:text-blue-500"
-                      )}>
-                        <item.icon className="h-4 w-4" />
-                      </span>
-                      <span className="text-sm font-medium">{item.label}</span>
-                    </motion.a>
-                    
-                    <motion.a
-                      href={item.href}
-                      className="flex items-center gap-2 px-4 py-2 absolute inset-0 z-10 bg-transparent text-foreground transition-colors rounded-xl"
-                      variants={backVariants}
-                      transition={sharedTransition}
-                      style={{
-                        transformStyle: "preserve-3d",
-                        transformOrigin: "center top",
-                        rotateX: 90
-                      }}
-                    >
-                      <span className={`transition-colors duration-300 ${item.iconColor}`}>
-                        <item.icon className="h-4 w-4" />
-                      </span>
-                      <span className="text-sm font-medium">{item.label}</span>
-                    </motion.a>
-                  </motion.div>
-                </motion.li>
-              ))}
-              
-              <motion.li className="relative ml-2">
-                <button
-                  onClick={() => {
-                    const newTheme = theme === "dark" ? "light" : "dark"
-                    setTheme(newTheme)
-                  }}
-                  className="flex items-center justify-center w-10 h-10 text-blue-400 transition-colors rounded-xl backdrop-blur-2xl border border-white/30 shadow-2xl transition-all duration-500 hover:border-white/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.5),0_0_60px_rgba(59,130,246,0.3),0_0_25px_rgba(59,130,246,0.9)] hover:scale-105"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 50%, rgba(0,0,0,0.02) 100%)',
-                    backdropFilter: 'blur(20px) saturate(180%) brightness(110%)',
-                    WebkitBackdropFilter: 'blur(20px) saturate(180%) brightness(110%)',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(59,130,246,0.15)'
-                  }}
-                  aria-label="Toggle theme"
-                >
-                  {mounted ? (
-                    theme === "dark" ? (
-                      <Sun className="h-5 w-5 drop-shadow-md" />
-                    ) : (
-                      <Moon className="h-5 w-5 drop-shadow-md" />
-                    )
-                  ) : (
-                    <div className="h-5 w-5 bg-blue-400/30 rounded-full animate-pulse" />
-                  )}
-                </button>
+                    <span className={cn(
+                      "transition-colors duration-300",
+                      item.label === "Accueil" && "group-hover:text-red-500",
+                      item.label === "Services" && "group-hover:text-orange-500",
+                      item.label === "Le Lab" && "group-hover:text-purple-500",
+                      item.label === "À Propos" && "group-hover:text-blue-500"
+                    )}>
+                      <item.icon className="h-4 w-4" />
+                    </span>
+                    <span className="text-sm font-medium">{item.label}</span>
+                  </motion.a>
+                  
+                  {/* Link ARRIÈRE (flip depuis le haut) */}
+                  <motion.a
+                    href={item.href}
+                    className="flex items-center gap-2 px-4 py-2 absolute inset-0 z-10 bg-transparent text-foreground transition-colors rounded-xl"
+                    variants={backVariants}
+                    transition={sharedTransition}
+                    style={{
+                      transformStyle: "preserve-3d",
+                      transformOrigin: "center top",
+                      rotateX: 90
+                    }}
+                  >
+                    <span className={`transition-colors duration-300 ${item.iconColor}`}>
+                      <item.icon className="h-4 w-4" />
+                    </span>
+                    <span className="text-sm font-medium">{item.label}</span>
+                  </motion.a>
+                </motion.div>
               </motion.li>
-            </ul>
-          )}
-        </AnimatePresence>
-      </motion.nav>
+            ))}
+            
+            {/* BOUTON DARK/LIGHT MODE */}
+            <motion.li className="relative ml-2">
+              <button
+                onClick={() => {
+                  const newTheme = theme === "dark" ? "light" : "dark"
+                  setTheme(newTheme)
+                }}
+                className="flex items-center justify-center w-10 h-10 text-blue-400 transition-colors rounded-xl backdrop-blur-2xl border border-white/30 shadow-2xl transition-all duration-500 hover:border-white/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.5),0_0_60px_rgba(59,130,246,0.3),0_0_25px_rgba(59,130,246,0.9)] hover:scale-105"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 50%, rgba(0,0,0,0.02) 100%)',
+                  backdropFilter: 'blur(20px) saturate(180%) brightness(110%)',
+                  WebkitBackdropFilter: 'blur(20px) saturate(180%) brightness(110%)',
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.2), 0 0 15px rgba(59,130,246,0.15)'
+                }}
+                aria-label="Toggle theme"
+              >
+                {mounted ? (
+                  theme === "dark" ? (
+                    <Sun className="h-5 w-5 drop-shadow-md" />
+                  ) : (
+                    <Moon className="h-5 w-5 drop-shadow-md" />
+                  )
+                ) : (
+                  <div className="h-5 w-5 bg-blue-400/30 rounded-full animate-pulse" />
+                )}
+              </button>
+            </motion.li>
+          </ul>
+        </motion.nav>
+      </AnimatePresence>
     </header>
   )
 }
