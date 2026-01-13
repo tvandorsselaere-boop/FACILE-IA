@@ -5,7 +5,6 @@ import { motion, type Variants, AnimatePresence } from "framer-motion"
 import { Home, Briefcase, Layers, User, Sun, Moon } from "lucide-react"
 import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
-import { Logo } from "@/components/Logo"
 
 interface MenuItem {
   icon: typeof Home
@@ -105,32 +104,10 @@ export function Header({ isScrolled = false }: HeaderProps) {
         className={cn(
           "flex items-center backdrop-blur-xl border border-white/20 shadow-lg relative overflow-hidden transition-all duration-500",
           isScrolled 
-            ? "justify-between px-4 py-2 rounded-2xl bg-white/10 dark:bg-white/5" 
+            ? "justify-end px-4 py-2 rounded-2xl bg-white/10 dark:bg-white/5" 
             : "gap-4 px-6 py-3 rounded-2xl bg-white/10 dark:bg-white/5"
         )}
       >
-        {/* Logo à gauche - visible seulement après scroll */}
-        <AnimatePresence>
-          {isScrolled && (
-            <motion.div
-              initial={{ opacity: 0, x: -50, scale: 0.5 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: -50, scale: 0.5 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              className="flex items-center"
-            >
-              <a href="/" className="flex items-center gap-2 group">
-                <div className="w-10 h-10 flex items-center justify-center">
-                  <Logo />
-                </div>
-                <span className="text-lg font-semibold text-foreground group-hover:text-blue-400 transition-colors">
-                  FACILE-IA
-                </span>
-              </a>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
         {/* Menu - centré quand pas scrollé, à droite quand scrollé */}
         <AnimatePresence>
           {isScrolled ? (

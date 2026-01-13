@@ -1,26 +1,49 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { Header } from "@/components/Header"
 import { HeroSlider } from "@/components/HeroSlider"
 import { LogoHero } from "@/components/LogoHero"
-import { Logo } from "@/components/Logo"
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [hasScrolledOnce, setHasScrolledOnce] = useState(false)
   const infoSectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY
-      setIsScrolled(scrollY > 100)
+      
+      if (scrollY > 100 && !hasScrolledOnce) {
+        setHasScrolledOnce(true)
+        setIsScrolled(true)
+        // Empêcher le scroll vers le haut
+        document.body.style.overflow = 'hidden'
+        setTimeout(() => {
+          document.body.style.overflow = 'auto'
+        }, 1000)
+      } else if (scrollY > 100) {
+        setIsScrolled(true)
+      }
+    }
+
+    // Empêcher le scroll vers le haut une fois qu'on a scrollé
+    const preventScrollUp = (e: WheelEvent) => {
+      if (hasScrolledOnce && e.deltaY < 0 && window.scrollY <= 100) {
+        e.preventDefault()
+      }
     }
 
     window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("wheel", preventScrollUp, { passive: false })
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("wheel", preventScrollUp)
+    }
+  }, [hasScrolledOnce])
 
   const scrollToInfo = () => {
     infoSectionRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -28,26 +51,36 @@ export default function Home() {
 
   return (
     <>
-      {/* Header avec menu - visible seulement après scroll */}
+      {/* Header avec menu et logo particules */}
       <Header isScrolled={isScrolled} />
 
-      {/* Logo central - visible quand pas scrollé */}
-      <AnimatePresence>
-        {!isScrolled && (
-          <motion.div
-            initial={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -100, scale: 0.5 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="fixed top-[160px] left-0 right-0 z-50 pointer-events-none flex items-center justify-center"
-          >
-            <div className="relative w-[1000px] h-[180px] pointer-events-auto">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <LogoHero />
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Logo central particules - animé vers le header */}
+      <motion.div
+        initial={{ opacity: 1, y: 0, scale: 1, x: 0 }}
+        animate={
+          isScrolled
+            ? {
+                opacity: 1,
+                y: -80,
+                x: -window.innerWidth / 2 + 150,
+                scale: 0.25,
+              }
+            : {
+                opacity: 1,
+                y: 0,
+                x: 0,
+                scale: 1,
+              }
+        }
+        transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+        className="fixed top-[160px] left-0 right-0 z-[110] pointer-events-none flex items-center justify-center"
+      >
+        <div className="relative w-[1000px] h-[180px] pointer-events-auto">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <LogoHero />
+          </div>
+        </div>
+      </motion.div>
 
       {/* Slider en dessous */}
       <HeroSlider />
