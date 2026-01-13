@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { EffectFade } from "swiper/modules"
+import { EffectFade, Autoplay } from "swiper/modules"
 import type { Swiper as SwiperType } from "swiper"
 import { motion, type Variants } from "framer-motion"
 
@@ -39,7 +39,7 @@ export function HeroSlider() {
   return (
     <div className="relative h-screen w-full overflow-hidden bg-background">
       <Swiper
-        modules={[EffectFade]}
+        modules={[EffectFade, Autoplay]}
         effect="fade"
         fadeEffect={{
           crossFade: true
@@ -47,6 +47,10 @@ export function HeroSlider() {
         speed={1000}
         loop={true}
         allowTouchMove={false}
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
+        }}
         onSwiper={(s) => (swiperRef.current = s)}
         onSlideChange={(s) => setActiveIndex(s.activeIndex)}
         className="h-full w-full"
