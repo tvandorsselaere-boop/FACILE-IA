@@ -96,15 +96,21 @@ export function Header({ isScrolled = false }: HeaderProps) {
   }
 
   return (
-    <header className="fixed top-4 right-4 z-[100]">
+    <header className="fixed top-4 left-4 right-4 z-[100]">
       <AnimatePresence>
         <motion.nav 
-          initial={{ opacity: 0, x: 100, scale: 0.8 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          exit={{ opacity: 0, x: 100, scale: 0.8 }}
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -50 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="flex items-center gap-4 px-6 py-3 rounded-2xl bg-white/10 dark:bg-white/5 backdrop-blur-xl border border-white/20 shadow-lg relative overflow-hidden"
+          className="flex items-center justify-between px-4 py-2 rounded-2xl bg-white/10 dark:bg-white/5 backdrop-blur-xl border border-white/20 shadow-lg relative overflow-hidden"
         >
+          {/* Espace réservé pour le logo particules (à gauche) */}
+          <div className="w-[180px] h-[50px] flex items-center">
+            {/* Le logo particules est positionné ici via page.tsx */}
+          </div>
+
+          {/* Menu glow (à droite) */}
           <ul className="flex items-center gap-2 relative z-10">
             {items.map((item) => (
               <motion.li key={item.label} className="relative">

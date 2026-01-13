@@ -53,24 +53,27 @@ export default function Home() {
 
       {/* Logo particules animé - du centre vers header gauche */}
       <motion.div
-        initial={{ opacity: 1, y: 0, scale: 1, x: 0 }}
+        initial={{ opacity: 1, top: 160, left: "50%", x: "-50%", scale: 1 }}
         animate={
           isScrolled
             ? {
                 opacity: 1,
-                y: -140,
-                x: typeof window !== 'undefined' ? -window.innerWidth / 2 + 180 : -400,
-                scale: 0.15,
+                top: 16,
+                left: 20,
+                x: 0,
+                scale: 0.12,
               }
             : {
                 opacity: 1,
-                y: 0,
-                x: 0,
+                top: 160,
+                left: "50%",
+                x: "-50%",
                 scale: 1,
               }
         }
         transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-        className="fixed top-[160px] left-0 right-0 z-[110] pointer-events-none flex items-center justify-center"
+        className="fixed z-[110] pointer-events-none"
+        style={{ transformOrigin: "left center" }}
       >
         <div className="relative w-[1000px] h-[180px] pointer-events-auto">
           <div className="absolute inset-0 flex items-center justify-center">
