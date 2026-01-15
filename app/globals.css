@@ -14,37 +14,37 @@
   --secondary-foreground: 0 0% 9%;
   --muted: 0 0% 96.1%;
   --muted-foreground: 0 0% 45.1%;
-  --accent: 0 84% 60%;
+  --accent: 217 91% 60%;
   --accent-foreground: 0 0% 98%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
   --border: 0 0% 89.8%;
   --input: 0 0% 89.8%;
-  --ring: 0 0% 83%;
+  --ring: 217 91% 60%;
   --radius: 0.5rem;
 }
 
 /* Variables CSS pour dark mode */
 .dark {
-  --background: 0 0% 3.9%;
+  --background: 222 47% 6%;
   --foreground: 0 0% 98%;
-  --card: 0 0% 3.9%;
+  --card: 222 47% 8%;
   --card-foreground: 0 0% 98%;
-  --popover: 0 0% 3.9%;
+  --popover: 222 47% 8%;
   --popover-foreground: 0 0% 98%;
   --primary: 0 0% 98%;
-  --primary-foreground: 0 0% 9%;
-  --secondary: 0 0% 14.9%;
+  --primary-foreground: 222 47% 6%;
+  --secondary: 222 30% 12%;
   --secondary-foreground: 0 0% 98%;
-  --muted: 0 0% 14.9%;
+  --muted: 222 30% 15%;
   --muted-foreground: 0 0% 63.9%;
-  --accent: 0 84% 60%;
+  --accent: 217 91% 60%;
   --accent-foreground: 0 0% 98%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 14.9%;
-  --input: 0 0% 14.9%;
-  --ring: 0 0% 83%;
+  --border: 222 30% 15%;
+  --input: 222 30% 15%;
+  --ring: 217 91% 60%;
 }
 
 * {
@@ -53,14 +53,17 @@
   box-sizing: border-box;
 }
 
+/* ===== SNAP SCROLL ===== */
 html {
-  /* Fond par défaut (light) */
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  height: 100%;
   background-color: hsl(0 0% 100%);
 }
 
 html.dark {
-  /* Fond dark */
-  background-color: hsl(0 0% 3.9%);
+  background-color: hsl(222 47% 6%);
 }
 
 body {
@@ -70,4 +73,149 @@ body {
   color: hsl(var(--foreground));
   transition: background-color 0.3s ease, color 0.3s ease;
   min-height: 100vh;
+}
+
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Désactiver snap scroll sur mobile */
+@media (max-width: 768px) {
+  html {
+    scroll-snap-type: none;
+  }
+  .snap-section {
+    min-height: auto;
+    height: auto;
+    scroll-snap-align: none;
+    padding: 4rem 0;
+  }
+}
+
+/* ===== ANIMATIONS GLOBALES ===== */
+
+/* Glow pulsant */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.6), 0 0 60px rgba(59, 130, 246, 0.3);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Gradient animé pour backgrounds */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Shine effect pour boutons */
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transform: translateX(-100%) skewX(-15deg);
+}
+
+.btn-shine:hover::after {
+  animation: shine 0.8s ease-in-out;
+}
+
+/* Glow adaptatif */
+.glow-blue {
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+}
+
+.glow-blue:hover {
+  box-shadow: 0 0 50px rgba(59, 130, 246, 0.5), 0 0 80px rgba(59, 130, 246, 0.3);
+}
+
+/* Liquid Glass base class */
+.liquid-glass {
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.1) 0%, 
+    rgba(255,255,255,0.05) 50%,
+    rgba(0,0,0,0.05) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 
+    0 8px 32px rgba(0,0,0,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+/* Mask gradient pour les bords */
+.mask-gradient-bottom {
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
+/* Scrollbar custom */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.5);
 }

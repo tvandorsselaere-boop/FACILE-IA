@@ -21,7 +21,7 @@ const letters = [
   },
   { char: 'C', distFn: (px: number, py: number, w: number, h: number) => {
       const radius = h / 2.2
-      const thickness = w * 2.5  // Épaisseur réduite de la barre
+      const thickness = w * 2.5
       const centerX = 0
       const centerY = 0
 
@@ -30,37 +30,27 @@ const letters = [
       const dist = Math.sqrt(dx * dx + dy * dy)
       const angle = Math.atan2(dy, dx)
 
-      // ✅ CORRECTION ICI : Exclure seulement la partie droite
-      // Math.atan2 retourne des valeurs entre -π et π
-      // On veut TOUT SAUF la zone de -45° à 45° (ouverture droite)
       let inArc = true
       if (angle > -Math.PI * 0.25 && angle < Math.PI * 0.25) {
-        inArc = false  // Exclure de -45° à 45°
+        inArc = false
       }
 
       if (!inArc) {
         return 1000
       }
 
-      // Distance au cercle moyen
       const distToRing = Math.abs(dist - radius)
-
-      // Si on est proche du cercle (dans l'épaisseur), c'est bon
       return distToRing - thickness / 2
     }
   },
   { char: 'I', distFn: (px: number, py: number, w: number, h: number) => {
-      // Corps : de -h/2 (bas) à h/6 (laisser espace pour le point)
       const stem = capsule(px, py, 0, -h/2, 0, h/6, w * 1.1)
-
-      // Point : centré à h/2.8 (légèrement plus haut)
       const dotCenterY = h/2.8
-      const dotRadius = w * 1.2  // Un peu plus gros pour visibilité
+      const dotRadius = w * 1.2
       const dx = px - 0
       const dy = py - dotCenterY
       const dotDist = Math.sqrt(dx * dx + dy * dy)
       const dot = dotDist - dotRadius
-
       return Math.min(stem, dot)
     }
   },
@@ -78,22 +68,18 @@ const letters = [
       return Math.min(vert, Math.min(top, Math.min(mid, bot)))
     }
   },
-  { char: '-', distFn: (px: number, py: number, w: number, h: number) => {
+  { char: '-', distFn: (px: number, py: number, w: number) => {
       return capsule(px, py, -0.1, 0.05, 0.1, 0.05, w)
   }
   },
   { char: 'I', distFn: (px: number, py: number, w: number, h: number) => {
-      // Corps : de -h/2 (bas) à h/6 (laisser espace pour le point)
       const stem = capsule(px, py, 0, -h/2, 0, h/6, w * 1.1)
-
-      // Point : centré à h/2.8 (légèrement plus haut)
       const dotCenterY = h/2.8
-      const dotRadius = w * 1.2  // Un peu plus gros pour visibilité
+      const dotRadius = w * 1.2
       const dx = px - 0
       const dy = py - dotCenterY
       const dotDist = Math.sqrt(dx * dx + dy * dy)
       const dot = dotDist - dotRadius
-
       return Math.min(stem, dot)
     }
   },
@@ -106,7 +92,7 @@ const letters = [
   },
 ]
 
-// Fonction capsule (ancienne fonction g)
+// Fonction capsule
 function capsule(px: number, py: number, ax: number, ay: number, cx: number, cy: number, w: number) {
   const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value))
     const pax = px - ax
@@ -120,28 +106,35 @@ function capsule(px: number, py: number, ax: number, ay: number, cx: number, cy:
     const dy = pay - bay * h
     return Math.sqrt(dx * dx + dy * dy) - w
   }
+
 export function LogoHero() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const scenesRef = useRef<any[]>([])
+  const scenesRef = useRef<{
+    scene: THREE.Scene
+    camera: THREE.PerspectiveCamera
+    renderer: THREE.WebGLRenderer
+    geometry: THREE.BufferGeometry
+    particleCount: number
+    originalPositions: Float32Array
+    velocities: Float32Array
+  }[]>([])
 
   useEffect(() => {
     if (!containerRef.current) return
 
     const container = containerRef.current
-    const scenes: any[] = []
+    const scenes: typeof scenesRef.current = []
 
-    // Largeur totale divisée en 7 (au lieu de 9) pour plus d'espacement
+    // Calcul correct : totalWidth / nombre de lettres
     const totalWidth = container.clientWidth
-    const cellWidth = totalWidth / 7  // Élargi de 9 à 7 divisions
+    const totalLetters = letters.length // 9 lettres
+    const cellWidth = totalWidth / totalLetters
     const cellHeight = container.clientHeight
 
-    // Créer 9 canvas (un par lettre) avec espacement élargi
     letters.forEach((letter, index) => {
       const canvas = document.createElement('canvas')
       canvas.style.position = 'absolute'
-      // Centrer le logo avec le nouvel espacement (7 divisions pour 9 lettres)
-      const startOffset = (totalWidth - 9 * cellWidth) / 2
-      canvas.style.left = `${startOffset + index * cellWidth}px`
+      canvas.style.left = `${index * cellWidth}px`
       canvas.style.top = '0'
       canvas.style.width = `${cellWidth}px`
       canvas.style.height = `${cellHeight}px`
@@ -149,15 +142,13 @@ export function LogoHero() {
       canvas.height = cellHeight
       container.appendChild(canvas)
 
-      // Setup Three.js pour cette lettre
-    const scene = new THREE.Scene()
+      const scene = new THREE.Scene()
       const camera = new THREE.PerspectiveCamera(75, cellWidth / cellHeight, 0.1, 1000)
       const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true })
       renderer.setSize(cellWidth, cellHeight)
       renderer.setClearColor(0x000000, 0)
 
-      // Générer particules pour cette lettre UNIQUEMENT
-      const numParticles = letter.char === 'I' ? 1200 : 2000  // Moins dense pour les i
+      const numParticles = letter.char === 'I' ? 800 : 1500
       const thickness = 0.1
       const w = 0.04
       const h = 0.6
@@ -167,13 +158,11 @@ export function LogoHero() {
     let i = 0
       const maxAttempts = 100000
 
-      // Zone de génération : centrée dans le cadre
       while (i < numParticles && i < maxAttempts) {
-        const x = (Math.random() - 0.5) * 0.8  // ±0.4 (plus petit pour rester dans cadre)
-        const y = (Math.random() - 0.5) * 1.0  // ±0.5
+        const x = (Math.random() - 0.5) * 0.8
+        const y = (Math.random() - 0.5) * 1.0
         const z = (Math.random() - 0.5) * thickness
 
-        // Utiliser la fonction de distance de cette lettre
         if (letter.distFn(x, y, w, h) <= 0) {
         positions[i * 3] = x
         positions[i * 3 + 1] = y
@@ -190,7 +179,7 @@ export function LogoHero() {
     geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3))
 
     const material = new THREE.PointsMaterial({
-        size: 0.01,  // Plus gros car cadre plus petit
+        size: 0.008,
       sizeAttenuation: true,
       vertexColors: true,
         transparent: true,
@@ -201,7 +190,6 @@ export function LogoHero() {
     scene.add(points)
       camera.position.set(0, 0, 1.0)
 
-      // Stocker les positions originales et vélocités pour les animations
       const originalPositions = positions.slice()
       const velocities = new Float32Array(numParticles * 3)
 
@@ -210,7 +198,6 @@ export function LogoHero() {
         camera,
         renderer,
         geometry,
-        colors,
         particleCount: i,
         originalPositions,
         velocities
@@ -219,7 +206,6 @@ export function LogoHero() {
 
     scenesRef.current = scenes
 
-    // Mouse interaction
     const raycaster = new THREE.Raycaster()
     const mouse = new THREE.Vector2()
     let mouseIntersection: THREE.Vector3 | null = null
@@ -229,10 +215,9 @@ export function LogoHero() {
       mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1
       mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1
       
-      // Créer un plan pour l'intersection
       const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0)
       const intersect = new THREE.Vector3()
-      raycaster.setFromCamera(mouse, scenes[4].camera) // Utiliser la caméra du L (centre)
+      raycaster.setFromCamera(mouse, scenes[4].camera)
       if (raycaster.ray.intersectPlane(plane, intersect)) {
         mouseIntersection = intersect
       } else {
@@ -242,7 +227,8 @@ export function LogoHero() {
 
     const handleResize = () => {
       const totalWidth = container.clientWidth
-      const cellWidth = totalWidth / 9
+      const totalLetters = letters.length
+      const cellWidth = totalWidth / totalLetters
       const cellHeight = container.clientHeight
 
       scenes.forEach((sceneData, index) => {
@@ -251,6 +237,7 @@ export function LogoHero() {
         canvas.height = cellHeight
         canvas.style.width = `${cellWidth}px`
         canvas.style.height = `${cellHeight}px`
+        canvas.style.left = `${index * cellWidth}px`
 
         sceneData.camera.aspect = cellWidth / cellHeight
         sceneData.camera.updateProjectionMatrix()
@@ -261,17 +248,14 @@ export function LogoHero() {
     container.addEventListener('mousemove', handleMouseMove)
     window.addEventListener('resize', handleResize)
 
-    // Animation loop
     const animate = () => {
       requestAnimationFrame(animate)
-      const time = Date.now() * 0.001
       const isDark = document.documentElement.classList.contains('dark')
 
       scenes.forEach(sceneData => {
         const positions = sceneData.geometry.attributes.position.array as Float32Array
-        const colors = sceneData.geometry.attributes.color.array
+        const colors = sceneData.geometry.attributes.color.array as Float32Array
 
-        // Mouse interaction
         if (mouseIntersection) {
           const mouseX = mouseIntersection.x
           const mouseY = mouseIntersection.y
@@ -295,14 +279,12 @@ export function LogoHero() {
         }
       }
 
-        // Appliquer la physique et retourner aux positions originales
         for (let i = 0; i < sceneData.particleCount; i++) {
         const i3 = i * 3
           const originalX = sceneData.originalPositions[i3]
           const originalY = sceneData.originalPositions[i3 + 1]
           const originalZ = sceneData.originalPositions[i3 + 2]
 
-          // Force de retour vers la position originale
           const dx = originalX - positions[i3]
           const dy = originalY - positions[i3 + 1]
           const dz = originalZ - positions[i3 + 2]
@@ -311,17 +293,14 @@ export function LogoHero() {
           sceneData.velocities[i3 + 1] += dy * 0.02
           sceneData.velocities[i3 + 2] += dz * 0.02
 
-          // Amortissement
           sceneData.velocities[i3] *= 0.95
           sceneData.velocities[i3 + 1] *= 0.95
           sceneData.velocities[i3 + 2] *= 0.95
 
-          // Appliquer les vélocités
           positions[i3] += sceneData.velocities[i3]
           positions[i3 + 1] += sceneData.velocities[i3 + 1]
           positions[i3 + 2] += sceneData.velocities[i3 + 2]
 
-          // Adapter couleurs au thème
           if (isDark) {
           colors[i3] = 1
           colors[i3 + 1] = 1
@@ -341,7 +320,6 @@ export function LogoHero() {
 
     animate()
 
-    // Cleanup
     return () => {
       container.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('resize', handleResize)
