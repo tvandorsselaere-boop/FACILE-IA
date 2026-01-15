@@ -6,13 +6,9 @@ import { ChevronUp, ChevronDown } from "lucide-react"
 
 const sections = [
   { id: "hero", label: "Accueil" },
-  { id: "pack-serenite", label: "Services" },
-  { id: "tools", label: "Outils" },
-  { id: "pricing", label: "Tarifs" },
-  { id: "lab-section", label: "Le Lab" },
-  { id: "process", label: "Process" },
-  { id: "faq", label: "FAQ" },
-  { id: "cta-final", label: "Contact" },
+  { id: "services", label: "Services" },
+  { id: "testimonials", label: "Témoignages" },
+  { id: "contact", label: "Contact" },
 ]
 
 export function PageNavigation() {
@@ -59,12 +55,12 @@ export function PageNavigation() {
             className="group relative flex items-center"
             whileHover={{ scale: 1.1 }}
           >
-            {/* Dot */}
+            {/* Dot avec couleur dynamique - CORRECTION VISIBILITÉ */}
             <motion.div
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 activeSection === index 
-                  ? "bg-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.8)]" 
-                  : "bg-white/30 hover:bg-white/50"
+                  ? "bg-glow shadow-glow" 
+                  : "bg-foreground/30 hover:bg-foreground/50"
               }`}
               animate={{
                 scale: activeSection === index ? 1.3 : 1,
@@ -72,7 +68,7 @@ export function PageNavigation() {
             />
             
             {/* Label on hover */}
-            <span className="absolute right-6 px-3 py-1 rounded-lg bg-white/10 backdrop-blur-xl text-sm text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+            <span className="absolute right-6 px-3 py-1 rounded-lg bg-background/80 backdrop-blur-xl text-sm text-foreground opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-border">
               {section.label}
             </span>
           </motion.button>
@@ -83,8 +79,8 @@ export function PageNavigation() {
       <div className="fixed left-6 bottom-6 z-50 flex flex-col gap-2 hidden md:flex">
         <motion.button
           onClick={scrollUp}
-          className={`w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-xl border border-white/20 transition-all duration-300 ${
-            activeSection === 0 ? "opacity-30 cursor-not-allowed" : "hover:border-blue-400/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]"
+          className={`w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-xl border border-border transition-all duration-300 ${
+            activeSection === 0 ? "opacity-30 cursor-not-allowed" : "hover:border-glow hover:shadow-glow"
           }`}
           style={{
             background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)',
@@ -93,13 +89,13 @@ export function PageNavigation() {
           whileHover={activeSection > 0 ? { scale: 1.1 } : {}}
           whileTap={activeSection > 0 ? { scale: 0.95 } : {}}
         >
-          <ChevronUp className="w-5 h-5 text-white/80" />
+          <ChevronUp className="w-5 h-5 text-foreground/80" />
         </motion.button>
         
         <motion.button
           onClick={scrollDown}
-          className={`w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-xl border border-white/20 transition-all duration-300 ${
-            activeSection === sections.length - 1 ? "opacity-30 cursor-not-allowed" : "hover:border-blue-400/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]"
+          className={`w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-xl border border-border transition-all duration-300 ${
+            activeSection === sections.length - 1 ? "opacity-30 cursor-not-allowed" : "hover:border-glow hover:shadow-glow"
           }`}
           style={{
             background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)',
@@ -108,7 +104,7 @@ export function PageNavigation() {
           whileHover={activeSection < sections.length - 1 ? { scale: 1.1 } : {}}
           whileTap={activeSection < sections.length - 1 ? { scale: 0.95 } : {}}
         >
-          <ChevronDown className="w-5 h-5 text-white/80" />
+          <ChevronDown className="w-5 h-5 text-foreground/80" />
         </motion.button>
       </div>
     </>

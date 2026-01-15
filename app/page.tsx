@@ -1,13 +1,9 @@
 import { Header } from "@/components/Header"
 import { PageNavigation } from "@/components/PageNavigation"
 import { HeroSection } from "@/components/sections/HeroSection"
-import { PackSerenite } from "@/components/sections/PackSerenite"
-import { ToolsLibrary } from "@/components/sections/ToolsLibrary"
-import { PricingComparison } from "@/components/sections/PricingComparison"
-import { LabSection } from "@/components/sections/LabSection"
-import { ProcessTimeline } from "@/components/sections/ProcessTimeline"
-import { FAQ } from "@/components/sections/FAQ"
-import { CTAFinal } from "@/components/sections/CTAFinal"
+import { ServicesSection } from "@/components/sections/ServicesSection"
+import { TestimonialsSection } from "@/components/sections/TestimonialsSection"
+import { ContactSection } from "@/components/sections/ContactSection"
 
 export default function Home() {
   return (
@@ -16,13 +12,9 @@ export default function Home() {
       <PageNavigation />
       <main>
         <HeroSection />
-        <PackSerenite />
-        <ToolsLibrary />
-        <PricingComparison />
-        <LabSection />
-        <ProcessTimeline />
-        <FAQ />
-        <CTAFinal />
+        <ServicesSection />
+        <TestimonialsSection />
+        <ContactSection />
       </main>
     </>
   )

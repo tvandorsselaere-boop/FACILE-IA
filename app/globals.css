@@ -22,9 +22,20 @@
   --input: 0 0% 89.8%;
   --ring: 217 91% 60%;
   --radius: 0.5rem;
+  
+  /* Mode CLAIR = BLEU */
+  --glow-color: 59, 130, 246;
+  --glow-color-15: rgba(59, 130, 246, 0.15);
+  --glow-color-20: rgba(59, 130, 246, 0.20);
+  --glow-color-30: rgba(59, 130, 246, 0.30);
+  --glow-color-40: rgba(59, 130, 246, 0.40);
+  --glow-color-50: rgba(59, 130, 246, 0.50);
+  --glow-color-60: rgba(59, 130, 246, 0.60);
+  --glow-hex: #3B82F6;
 }
 
 /* Variables CSS pour dark mode */
+
 .dark {
   --background: 222 47% 6%;
   --foreground: 0 0% 98%;
@@ -45,6 +56,16 @@
   --border: 222 30% 15%;
   --input: 222 30% 15%;
   --ring: 217 91% 60%;
+  
+  /* Mode DARK = ROUGE */
+  --glow-color: 239, 68, 68;
+  --glow-color-15: rgba(239, 68, 68, 0.15);
+  --glow-color-20: rgba(239, 68, 68, 0.20);
+  --glow-color-30: rgba(239, 68, 68, 0.30);
+  --glow-color-40: rgba(239, 68, 68, 0.40);
+  --glow-color-50: rgba(239, 68, 68, 0.50);
+  --glow-color-60: rgba(239, 68, 68, 0.60);
+  --glow-hex: #EF4444;
 }
 
 * {
@@ -218,4 +239,59 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(59, 130, 246, 0.5);
+}
+
+/* ===== CLASSES UTILITAIRES GLOW ===== */
+.text-glow {
+  color: rgb(var(--glow-color));
+}
+
+.bg-glow {
+  background-color: rgb(var(--glow-color));
+}
+
+.bg-glow\/20 {
+  background-color: var(--glow-color-20);
+}
+
+.border-glow {
+  border-color: var(--glow-color-30);
+}
+
+.shadow-glow {
+  box-shadow: 0 0 30px var(--glow-color-40);
+}
+
+.shadow-glow-lg {
+  box-shadow: 0 0 50px var(--glow-color-50), 0 0 80px var(--glow-color-30);
+}
+
+.glass-card-glow {
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.08) 0%, 
+    rgba(255,255,255,0.04) 50%,
+    rgba(0,0,0,0.05) 100%);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--glow-color-30);
+  box-shadow: 
+    0 0 40px var(--glow-color-20),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+.glass-card-glow:hover {
+  box-shadow: 
+    0 0 60px var(--glow-color-40),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.btn-glow {
+  background-color: rgb(var(--glow-color));
+  box-shadow: 0 0 30px var(--glow-color-40);
+  transition: all 0.3s ease;
+}
+
+.btn-glow:hover {
+  box-shadow: 0 0 50px var(--glow-color-60), 0 0 80px var(--glow-color-30);
+  transform: scale(1.05);
 }
