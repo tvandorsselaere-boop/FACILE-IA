@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { ChevronDown } from "lucide-react"
+import Link from "next/link"
 import { LogoHero } from "@/components/LogoHero"
 
 interface Particle {
@@ -50,12 +51,12 @@ export function HeroSection() {
         ))}
       </div>
 
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 pt-20">
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 pt-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center space-y-6 max-w-4xl mx-auto"
+          className="text-center space-y-8 max-w-4xl mx-auto"
         >
           {/* Logo GRAND */}
           <div className="w-full max-w-[800px] h-[160px] mx-auto">
@@ -67,36 +68,51 @@ export function HeroSection() {
             Agence numérique augmentée pour <span className="text-glow">Artisans et PME</span>
           </p>
 
-          {/* Slogan */}
+          {/* Slogan - SANS PRIX */}
           <h1 className="text-2xl md:text-4xl font-light leading-relaxed">
             Gagnez du temps pour <span className="text-glow">ce qui compte vraiment</span>
           </h1>
 
-          {/* Prix */}
-          <div className="pt-4">
-            <div className="inline-block px-8 py-4 rounded-2xl glass-card-glow">
-              <p className="text-3xl md:text-4xl font-bold text-glow">29€/mois</p>
-              <p className="text-xs text-muted-foreground mt-1">L'IA qui travaille pendant que vous vivez</p>
-            </div>
-          </div>
-
-          {/* CTAs simples */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
-            <a href="#services" className="px-6 py-3 rounded-xl bg-glow text-white text-sm font-medium hover:opacity-90 transition-opacity">
-              Découvrir nos services
+          {/* CTAs - SANS badge prix */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
+            <a 
+              href="#services" 
+              className="px-8 py-4 rounded-xl bg-glow text-white font-medium hover:opacity-90 transition-opacity"
+            >
+              Découvrir nos offres
             </a>
-            <a href="#contact" className="px-6 py-3 rounded-xl border border-border text-sm hover:border-glow/50 transition-colors">
+            <a 
+              href="#contact" 
+              className="px-8 py-4 rounded-xl border border-border hover:border-glow/50 transition-colors"
+            >
               Réserver un appel gratuit
             </a>
           </div>
+
+          {/* Lien Le Lab discret */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+            className="pt-8"
+          >
+            <Link 
+              href="/lab" 
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-glow transition-colors"
+            >
+              <span>🔬</span>
+              <span>Découvrez notre Lab R&D</span>
+              <span>→</span>
+            </Link>
+          </motion.div>
         </motion.div>
 
         {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          transition={{ delay: 1.2 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2"
         >
           <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
             <ChevronDown className="w-5 h-5 text-muted-foreground" />

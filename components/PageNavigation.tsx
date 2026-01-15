@@ -6,10 +6,9 @@ import { ChevronUp, ChevronDown } from "lucide-react"
 
 const sections = [
   { id: "hero", label: "Facile-IA" },
-  { id: "services", label: "Services" },
+  { id: "services", label: "Offres" },
   { id: "testimonials", label: "Témoignages" },
   { id: "contact", label: "Contact" },
-  { id: "lab", label: "Le Lab" },
 ]
 
 export function PageNavigation() {

@@ -2,32 +2,39 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Briefcase, MessageSquare, Phone, FlaskConical, Sun, Moon, Menu, X } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { Sun, Moon, Menu, X } from "lucide-react"
 import { useTheme } from "next-themes"
 import { LogoHero } from "./LogoHero"
 
 const navItems = [
-  { icon: Briefcase, label: "Facile-IA", href: "#hero" },
-  { icon: Briefcase, label: "Services", href: "#services" },
-  { icon: MessageSquare, label: "Témoignages", href: "#testimonials" },
-  { icon: Phone, label: "Contact", href: "#contact" },
-  { icon: FlaskConical, label: "Le Lab", href: "#lab" },
+  { label: "Facile-IA", href: "/#hero", isAnchor: true },
+  { label: "Offres", href: "/#services", isAnchor: true },
+  { label: "Témoignages", href: "/#testimonials", isAnchor: true },
+  { label: "Contact", href: "/#contact", isAnchor: true },
+  { label: "Le Lab", href: "/lab", isAnchor: false },
 ]
 
 export function Header() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const isLabPage = pathname === "/lab"
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault()
-    const target = document.querySelector(href)
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" })
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: typeof navItems[0]) => {
+    // Si c'est un anchor sur la page principale, scroll smooth
+    if (item.isAnchor && !isLabPage) {
+      e.preventDefault()
+      const target = document.querySelector(item.href.replace('/', ''))
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" })
+      }
     }
     setMobileMenuOpen(false)
   }
@@ -41,9 +48,9 @@ export function Header() {
         className="max-w-7xl mx-auto flex items-center justify-between px-4 py-2 rounded-2xl glass-card-glow"
       >
         {/* Logo à gauche */}
-        <div className="w-[220px] h-[55px] flex-shrink-0">
+        <Link href="/" className="w-[220px] h-[55px] flex-shrink-0">
           <LogoHero />
-        </div>
+        </Link>
 
         {/* MILIEU : Espace flexible */}
         <div className="flex-1" />
@@ -54,16 +61,17 @@ export function Header() {
           <ul className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
               <li key={item.label}>
-                <motion.a
+                <Link
                   href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-muted-foreground hover:text-foreground hover:bg-foreground/5 transition-all"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
+                  onClick={(e) => handleNavClick(e, item)}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm transition-all ${
+                    (isLabPage && item.href === "/lab") || (!isLabPage && item.href === "/#hero")
+                      ? "text-glow"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
                 >
-                  <item.icon className="h-4 w-4" />
-                  <span>{item.label}</span>
-                </motion.a>
+                  {item.label}
+                </Link>
               </li>
             ))}
           </ul>
@@ -104,18 +112,24 @@ export function Header() {
             className="md:hidden mt-2 mx-4 p-4 rounded-2xl glass-card-glow"
           >
             {navItems.map((item, i) => (
-              <motion.a
+              <motion.div 
                 key={item.label}
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.1 }}
-                className="flex items-center gap-3 px-4 py-3 text-foreground hover:text-glow transition-colors"
               >
-                <item.icon className="h-5 w-5" />
-                <span className="font-medium">{item.label}</span>
-              </motion.a>
+                <Link
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item)}
+                  className={`flex items-center gap-3 px-4 py-3 transition-colors ${
+                    (isLabPage && item.href === "/lab") || (!isLabPage && item.href === "/#hero")
+                      ? "text-glow"
+                      : "text-foreground hover:text-glow"
+                  }`}
+                >
+                  <span className="font-medium">{item.label}</span>
+                </Link>
+              </motion.div>
             ))}
           </motion.div>
         )}

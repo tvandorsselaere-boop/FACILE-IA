@@ -6,16 +6,16 @@ import * as THREE from "three"
 // Définition des lettres avec leurs fonctions de distance
 const letters = [
   { char: 'F', distFn: (px: number, py: number, w: number, h: number) => {
-      const vert = capsule(px, py, -0.05, -h/2, -0.05, h/2, w)
-      const top = capsule(px, py, -0.05, h/2, 0.18, h/2, w)
-      const mid = capsule(px, py, -0.05, 0.1, 0.12, 0.1, w)
+      const vert = capsule(px, py, 0, -h/2, 0, h/2, w)
+      const top = capsule(px, py, 0, h/2, 0.18, h/2, w)
+      const mid = capsule(px, py, 0, 0.1, 0.15, 0.1, w)
       return Math.min(vert, Math.min(top, mid))
     }
   },
   { char: 'A', distFn: (px: number, py: number, w: number, h: number) => {
-      const left = capsule(px, py, -0.12, -h/2, 0, h/2, w)
-      const right = capsule(px, py, 0, h/2, 0.12, -h/2, w)
-      const bar = capsule(px, py, -0.08, -0.05, 0.08, -0.05, w)
+      const left = capsule(px, py, -0.15, -h/2, 0, h/2, w)
+      const right = capsule(px, py, 0, h/2, 0.15, -h/2, w)
+      const bar = capsule(px, py, -0.1, 0, 0.1, 0, w)
       return Math.min(left, Math.min(right, bar))
     }
   },
@@ -148,7 +148,7 @@ export function LogoHero() {
       renderer.setSize(cellWidth, cellHeight)
       renderer.setClearColor(0x000000, 0)
 
-      const numParticles = letter.char === 'I' || letter.char === '-' ? 1200 : 3000
+      const numParticles = letter.char === 'I' || letter.char === '-' ? 1500 : 3500
       const thickness = 0.1
       const w = 0.04
       const h = 0.6
@@ -179,7 +179,7 @@ export function LogoHero() {
     geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3))
 
     const material = new THREE.PointsMaterial({
-        size: 0.012,
+        size: 0.015,
       sizeAttenuation: true,
       vertexColors: true,
         transparent: true,

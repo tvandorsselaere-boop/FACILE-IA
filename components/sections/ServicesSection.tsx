@@ -16,70 +16,78 @@ export function ServicesSection() {
   const [selectedTool, setSelectedTool] = useState<string | null>(null)
 
   return (
-    <section id="services" className="snap-section relative py-16 px-4">
-      <div className="max-w-5xl mx-auto h-full flex flex-col justify-center">
+    <section id="services" className="snap-section relative py-24 px-4">
+      <div className="max-w-6xl mx-auto w-full">
         
-        {/* Header */}
+        {/* Header avec plus d'espace */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-10"
+          className="text-center mb-12"
         >
-          <h2 className="text-2xl md:text-3xl font-light mb-2">
+          <h2 className="text-2xl md:text-3xl font-light mb-3">
             Pack <span className="text-glow">Sérénité</span>
           </h2>
           <p className="text-sm text-muted-foreground">Installation + Outils IA inclus</p>
         </motion.div>
 
-        {/* Layout 2 colonnes */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+        {/* Grid avec cards plus grandes */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
-          {/* Colonne prix (2/5) */}
-          <div className="lg:col-span-2 space-y-4">
-            <LiquidGlassCard className="p-5" hover={false}>
-              <p className="text-xs text-muted-foreground mb-1">Installation unique</p>
-              <p className="text-2xl font-bold text-glow">999€</p>
-              <p className="text-xs text-muted-foreground mt-2">Site vitrine + Formation inclus</p>
+          {/* Colonne prix - Cards plus hautes */}
+          <div className="space-y-6">
+            <LiquidGlassCard className="p-8" hover={false}>
+              <p className="text-sm text-muted-foreground mb-2">Installation unique</p>
+              <p className="text-4xl font-bold text-glow mb-3">999€</p>
+              <p className="text-sm text-muted-foreground">Site vitrine professionnel</p>
+              <p className="text-sm text-muted-foreground">Formation complète incluse</p>
             </LiquidGlassCard>
             
-            <LiquidGlassCard className="p-5 border-glow" hover={false}>
-              <span className="text-xs bg-glow/20 text-glow px-2 py-0.5 rounded-full">NO-BRAINER</span>
-              <p className="text-3xl font-bold text-glow mt-2">29€<span className="text-lg">/mois</span></p>
-              <p className="text-xs text-muted-foreground mt-1">Sans engagement</p>
+            <LiquidGlassCard className="p-8 border-glow" hover={false}>
+              <span className="inline-block text-xs bg-glow/20 text-glow px-3 py-1 rounded-full mb-4">
+                NO-BRAINER
+              </span>
+              <p className="text-4xl font-bold text-glow">
+                29€<span className="text-xl font-normal">/mois</span>
+              </p>
+              <p className="text-sm text-muted-foreground mt-2">Sans engagement • Annulez quand vous voulez</p>
             </LiquidGlassCard>
 
-            <a href="#contact" className="block w-full py-3 rounded-xl bg-glow text-white text-sm text-center font-medium hover:opacity-90 transition-opacity">
-              Réserver un appel (30min gratuit)
+            <a 
+              href="#contact" 
+              className="block w-full py-4 rounded-xl bg-glow text-white text-center font-medium hover:opacity-90 transition-opacity"
+            >
+              Réserver un appel découverte (30min gratuit)
             </a>
           </div>
 
-          {/* Colonne outils (3/5) */}
-          <div className="lg:col-span-3">
-            <div className="grid grid-cols-2 gap-3">
-              {tools.map((tool) => (
-                <motion.button
-                  key={tool.id}
-                  onClick={() => setSelectedTool(tool.id)}
-                  className="p-4 rounded-xl text-left glass-card-glow hover:shadow-glow transition-all"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span className="text-2xl">{tool.icon}</span>
-                  <p className="font-medium text-sm mt-2">{tool.title}</p>
-                  <p className="text-xs text-muted-foreground">{tool.desc}</p>
-                  <p className="text-xs text-glow mt-1">{tool.gain}</p>
-                </motion.button>
-              ))}
-            </div>
-            <p className="text-center text-xs text-muted-foreground mt-4">
-              Total : <span className="text-glow font-medium">+10h/semaine</span> libérées
-            </p>
+          {/* Colonne outils - Cards plus grandes */}
+          <div className="grid grid-cols-2 gap-4">
+            {tools.map((tool) => (
+              <motion.button
+                key={tool.id}
+                onClick={() => setSelectedTool(tool.id)}
+                className="p-6 rounded-2xl text-left glass-card-glow hover:shadow-glow transition-all h-full"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="text-3xl block mb-3">{tool.icon}</span>
+                <p className="font-semibold text-base mb-1">{tool.title}</p>
+                <p className="text-sm text-muted-foreground mb-2">{tool.desc}</p>
+                <p className="text-sm text-glow font-medium">{tool.gain}</p>
+              </motion.button>
+            ))}
           </div>
         </div>
+
+        {/* Total en bas */}
+        <p className="text-center text-sm text-muted-foreground mt-8">
+          Total : <span className="text-glow font-semibold">+10h/semaine</span> libérées
+        </p>
       </div>
 
-      {/* Modal détail (simplifié) */}
+      {/* Modal détail */}
       <AnimatePresence>
         {selectedTool && (
           <motion.div
