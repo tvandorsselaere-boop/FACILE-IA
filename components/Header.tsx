@@ -2,15 +2,16 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Home, Briefcase, MessageSquare, Phone, Sun, Moon, Menu, X } from "lucide-react"
+import { Briefcase, MessageSquare, Phone, FlaskConical, Sun, Moon, Menu, X } from "lucide-react"
 import { useTheme } from "next-themes"
 import { LogoHero } from "./LogoHero"
 
 const navItems = [
-  { icon: Home, label: "Accueil", href: "#hero" },
+  { icon: Briefcase, label: "Facile-IA", href: "#hero" },
   { icon: Briefcase, label: "Services", href: "#services" },
   { icon: MessageSquare, label: "Témoignages", href: "#testimonials" },
   { icon: Phone, label: "Contact", href: "#contact" },
+  { icon: FlaskConical, label: "Le Lab", href: "#lab" },
 ]
 
 export function Header() {
@@ -40,7 +41,7 @@ export function Header() {
         className="max-w-7xl mx-auto flex items-center justify-between px-4 py-2 rounded-2xl glass-card-glow"
       >
         {/* Logo à gauche */}
-        <div className="w-[160px] h-[40px] flex-shrink-0">
+        <div className="w-[220px] h-[55px] flex-shrink-0">
           <LogoHero />
         </div>
 

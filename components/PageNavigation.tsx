@@ -5,10 +5,11 @@ import { motion } from "framer-motion"
 import { ChevronUp, ChevronDown } from "lucide-react"
 
 const sections = [
-  { id: "hero", label: "Accueil" },
+  { id: "hero", label: "Facile-IA" },
   { id: "services", label: "Services" },
   { id: "testimonials", label: "Témoignages" },
   { id: "contact", label: "Contact" },
+  { id: "lab", label: "Le Lab" },
 ]
 
 export function PageNavigation() {
@@ -57,13 +58,13 @@ export function PageNavigation() {
           >
             {/* Dot avec couleur dynamique - CORRECTION VISIBILITÉ */}
             <motion.div
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                 activeSection === index 
                   ? "bg-glow shadow-glow" 
-                  : "bg-foreground/30 hover:bg-foreground/50"
+                  : "bg-foreground/40 dark:bg-foreground/30 hover:bg-foreground/60"
               }`}
               animate={{
-                scale: activeSection === index ? 1.3 : 1,
+                scale: activeSection === index ? 1.4 : 1,
               }}
             />
             

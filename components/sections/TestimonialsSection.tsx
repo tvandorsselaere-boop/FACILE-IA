@@ -46,10 +46,10 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-6xl font-light mb-4">
+          <h2 className="text-2xl md:text-3xl font-light mb-2">
             Ils nous font <span className="text-glow">confiance</span>
           </h2>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             Des artisans et PME comme vous
           </p>
         </motion.div>
