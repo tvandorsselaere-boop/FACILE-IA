@@ -1,6 +1,6 @@
 "use client"
 
-import { Header } from "@/components/Header"
+import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"

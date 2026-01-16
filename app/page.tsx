@@ -1,4 +1,4 @@
-import { Header } from "@/components/Header"
+import { Header } from "@/components/header"
 import { Hero } from "@/components/hero"
 import { Services } from "@/components/services"
 import { Testimonials } from "@/components/testimonials"
@@ -12,7 +12,7 @@ export default function Home() {
     <main className="bg-background relative">
       {/* Spotlight global qui suit la souris sur toute la page */}
       <SpotlightEffect />
-      
+
       <Header />
       <Hero />
       <Services />
