@@ -138,13 +138,22 @@ export function LogoHero() {
       canvas.style.top = '0'
       canvas.style.width = `${cellWidth}px`
       canvas.style.height = `${cellHeight}px`
-      canvas.width = cellWidth
-      canvas.height = cellHeight
+      // Use device pixel ratio for sharper rendering
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      canvas.width = Math.floor(cellWidth * dpr)
+      canvas.height = Math.floor(cellHeight * dpr)
       container.appendChild(canvas)
 
       const scene = new THREE.Scene()
       const camera = new THREE.PerspectiveCamera(75, cellWidth / cellHeight, 0.1, 1000)
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true })
+      const renderer = new THREE.WebGLRenderer({ 
+        canvas, 
+        antialias: true, 
+        alpha: true,
+        powerPreference: 'high-performance',
+        failIfMajorPerformanceCaveat: false
+      })
+      renderer.setPixelRatio(dpr)
       renderer.setSize(cellWidth, cellHeight)
       renderer.setClearColor(0x000000, 0)
 
@@ -230,17 +239,19 @@ export function LogoHero() {
       const totalLetters = letters.length
       const cellWidth = totalWidth / totalLetters
       const cellHeight = container.clientHeight
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
 
       scenes.forEach((sceneData, index) => {
         const canvas = container.children[index] as HTMLCanvasElement
-        canvas.width = cellWidth
-        canvas.height = cellHeight
+        canvas.width = Math.floor(cellWidth * dpr)
+        canvas.height = Math.floor(cellHeight * dpr)
         canvas.style.width = `${cellWidth}px`
         canvas.style.height = `${cellHeight}px`
         canvas.style.left = `${index * cellWidth}px`
 
         sceneData.camera.aspect = cellWidth / cellHeight
         sceneData.camera.updateProjectionMatrix()
+        sceneData.renderer.setPixelRatio(dpr)
         sceneData.renderer.setSize(cellWidth, cellHeight)
       })
     }

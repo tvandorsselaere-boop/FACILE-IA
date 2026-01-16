@@ -80,6 +80,7 @@ html {
   scroll-behavior: smooth;
   overflow-y: scroll;
   height: 100%;
+  width: 100%;
   background-color: hsl(0 0% 100%);
 }
 
@@ -94,18 +95,28 @@ body {
   color: hsl(var(--foreground));
   transition: background-color 0.3s ease, color 0.3s ease;
   min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .snap-section {
   scroll-snap-align: start;
   scroll-snap-stop: always;
   min-height: 100vh;
-  height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  padding: 120px 1rem 4rem 1rem; /* Augmenté pour plus d'espace */
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+}
+
+@media (min-width: 1024px) {
+  .snap-section {
+    padding: 140px 2rem 6rem 2rem;
+  }
 }
 
 /* Désactiver snap scroll sur mobile */
@@ -117,7 +128,29 @@ body {
     min-height: auto;
     height: auto;
     scroll-snap-align: none;
-    padding: 4rem 0;
+    padding: 8rem 1rem 5rem 1rem;
+  }
+}
+
+/* Full width container */
+.full-width-container {
+  width: 100%;
+  max-width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .full-width-container {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .full-width-container {
+    padding-left: 6rem;
+    padding-right: 6rem;
   }
 }
 

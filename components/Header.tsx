@@ -9,11 +9,11 @@ import { useTheme } from "next-themes"
 import { LogoHero } from "./LogoHero"
 
 const navItems = [
-  { label: "Facile-IA", href: "/#hero", isAnchor: true },
-  { label: "Offres", href: "/#services", isAnchor: true },
-  { label: "Témoignages", href: "/#testimonials", isAnchor: true },
-  { label: "Contact", href: "/#contact", isAnchor: true },
-  { label: "Le Lab", href: "/lab", isAnchor: false },
+  { label: "Facile-IA", href: "/#hero", isAnchor: true, isLab: false },
+  { label: "Offres", href: "/#services", isAnchor: true, isLab: false },
+  { label: "Témoignages", href: "/#testimonials", isAnchor: true, isLab: false },
+  { label: "Contact", href: "/#contact", isAnchor: true, isLab: false },
+  { label: "Le Lab", href: "/lab", isAnchor: false, isLab: true },
 ]
 
 export function Header() {
@@ -40,12 +40,12 @@ export function Header() {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[100] px-4 py-4">
+    <header className="fixed top-0 left-0 right-0 z-[100] w-full px-4 py-4">
       <motion.nav
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="max-w-7xl mx-auto flex items-center justify-between px-4 py-2 rounded-2xl glass-card-glow"
+        className="w-full max-w-7xl mx-auto flex items-center justify-between px-6 py-3 rounded-2xl glass-card-glow"
       >
         {/* Logo à gauche */}
         <Link href="/" className="w-[220px] h-[55px] flex-shrink-0">
@@ -61,15 +61,20 @@ export function Header() {
           <ul className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
               <li key={item.label}>
+                {/* Séparateur avant Le Lab */}
+                {item.isLab && (
+                  <div className="w-px h-6 bg-glow/30 mx-3" />
+                )}
                 <Link
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item)}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm transition-all ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-all ${
                     (isLabPage && item.href === "/lab") || (!isLabPage && item.href === "/#hero")
                       ? "text-glow"
                       : "text-muted-foreground hover:text-foreground"
-                  }`}
+                  } ${item.isLab ? "border border-glow/50 bg-glow/10 hover:bg-glow/20 hover:border-glow shadow-glow" : ""}`}
                 >
+                  {item.isLab && <span className="text-base">🧪</span>}
                   {item.label}
                 </Link>
               </li>
