@@ -256,6 +256,15 @@ body {
   -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
 
+/* Badge styles */
+.badge-orange {
+  @apply bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.badge-outline {
+  @apply border border-white/30 text-white/70 px-2 py-0.5 rounded-full text-xs;
+}
+
 /* Scrollbar custom */
 ::-webkit-scrollbar {
   width: 8px;

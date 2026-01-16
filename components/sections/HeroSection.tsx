@@ -66,19 +66,19 @@ export function HeroSection() {
           transition={{ duration: 0.6 }}
           className="flex-1 flex flex-col items-center justify-center min-h-[50vh]"
         >
+          {/* Badge Pôle Services */}
+          <span className="inline-block px-4 py-2 rounded-full bg-orange-500 text-white text-sm font-medium mb-8">
+            Pôle Services PME
+          </span>
+
           <div className="w-full max-w-[900px] h-[180px] mx-auto mb-8">
             <LogoHero />
           </div>
 
-          {/* Sous-titre */}
-          <p className="text-lg md:text-xl text-muted-foreground font-light text-center mb-6">
-            Agence numérique augmentée pour <span className="text-glow font-medium">Artisans et PME</span>
-          </p>
-
           {/* Slogan principal */}
-          <h1 className="text-2xl md:text-4xl lg:text-5xl font-light leading-relaxed text-center max-w-3xl">
-            Gagnez du temps pour <span className="text-glow font-medium">ce qui compte vraiment</span>
-          </h1>
+          <p className="text-xl md:text-2xl text-muted-foreground/70 font-light text-center max-w-2xl italic">
+            « Gagner du temps pour ce qui compte vraiment. »
+          </p>
         </motion.div>
 
         {/* Value Props - Cards empilables sur mobile */}

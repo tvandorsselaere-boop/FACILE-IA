@@ -2,42 +2,64 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, ArrowRight } from "lucide-react"
+import { X, ArrowRight, DollarSign, FileText, Star, File, Eye, Users, CheckCircle } from "lucide-react"
 import { LiquidGlassCard } from "@/components/ui/LiquidGlassCard"
 
 const tools = [
   { 
     id: "frais", 
-    icon: "📱", 
-    title: "Notes de Frais IA", 
-    desc: "Prenez une photo, l'IA fait le reste", 
-    gain: "-3h/sem",
-    details: "Fini les tickets qui s'accumulent ! Photographiez vos reçus, l'IA extrait les infos et les classe automatiquement dans votre comptabilité."
+    Icon: DollarSign,
+    color: "bg-green-500",
+    title: "Notes de Frais", 
+    desc: "OCR + IA", 
+    details: "Photographiez vos reçus, l'IA extrait et classe automatiquement. Fini les tickets qui s'accumulent !"
   },
   { 
-    id: "avis", 
-    icon: "⭐", 
-    title: "Avis Google", 
-    desc: "Surveillance + Réponses personnalisées", 
-    gain: "-2h/sem",
-    details: "Notification immédiate des nouveaux avis. L'IA rédige des réponses parfaites que vous validez en un clic. Votre e-réputation sans effort."
+    id: "devis", 
+    Icon: FileText,
+    color: "bg-blue-500",
+    title: "Devis Pro", 
+    desc: "Templates pro", 
+    details: "Créez des devis professionnels en quelques clics avec des templates personnalisés à votre image."
   },
   { 
-    id: "impayes", 
-    icon: "💰", 
-    title: "Relance Impayés", 
-    desc: "Efficace et diplomate", 
-    gain: "-1.5h/sem",
-    details: "L'IA relance vos clients avec le bon ton au bon moment. Plus de factures oubliées, plus de relations abîmées."
+    id: "reputation", 
+    Icon: Star,
+    color: "bg-yellow-500",
+    title: "Reputation IA", 
+    desc: "Réponses auto", 
+    details: "L'IA surveille et répond à vos avis Google avec le ton parfait. Améliorez votre e-réputation sans effort."
   },
   { 
     id: "pdf", 
-    icon: "📋", 
-    title: "Assistant PDF", 
-    desc: "Organisation automatique", 
-    gain: "-1h/sem",
-    details: "Factures, devis, contrats... L'IA classe et nomme vos documents. Retrouvez n'importe quel fichier en 2 secondes."
+    Icon: File,
+    color: "bg-orange-500",
+    title: "PDF Pro", 
+    desc: "Fusion & signatures", 
+    details: "Fusionnez, divisez, signez vos PDF en un clic. Tout est automatique et sécurisé."
   },
+  { 
+    id: "veille", 
+    Icon: Eye,
+    color: "bg-purple-500",
+    title: "Veille Pro", 
+    desc: "Intelligence concurrentielle", 
+    details: "L'IA surveille votre marché et vous alerte des opportunités et menaces en temps réel."
+  },
+  { 
+    id: "crm", 
+    Icon: Users,
+    color: "bg-red-500",
+    title: "CRM Smart", 
+    desc: "Gestion auto clients", 
+    details: "Gérez vos clients intelligemment : relances automatiques, historique complet, rappels personnalisés."
+  },
+]
+
+const packIncludes = [
+  "Setup technique complet",
+  "Site vitrine professionnel",
+  "3 applications au choix parmi notre panel d'outils métier",
 ]
 
 export function ServicesSection() {
@@ -54,14 +76,14 @@ export function ServicesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="inline-block text-sm bg-glow/10 text-glow px-4 py-2 rounded-full mb-6">
-            Pack Sérénité
-          </span>
           <h2 className="text-3xl md:text-4xl font-light mb-4">
-            Installation + <span className="text-glow">Outils IA</span> inclus
+            Le <span className="text-glow">Pack Sérénité Numérique</span>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            Tout ce qu'il faut pour automatiser les tâches chronophages et retrouver du temps pour votre métier
+          <p className="text-xl text-glow/80 font-medium mb-4">
+            20 ans d'expertise Airbus Helicopters
+          </p>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Stack propriétaires Python/Next.js/Claude/Cursor pour digitaliser les PME avec une rigueur aéronautique
           </p>
         </motion.div>
 
@@ -78,19 +100,13 @@ export function ServicesSection() {
               <LiquidGlassCard className="p-8" hover={false}>
                 <p className="text-sm text-muted-foreground mb-3">Installation unique</p>
                 <p className="text-5xl font-bold text-glow mb-4">999€</p>
-                <div className="space-y-2 text-sm">
-                  <p className="flex items-center gap-2">
-                    <span className="text-glow">✓</span>
-                    Site vitrine professionnel
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <span className="text-glow">✓</span>
-                    Configuration des outils IA
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <span className="text-glow">✓</span>
-                    Formation complète incluse
-                  </p>
+                <div className="space-y-3 text-sm">
+                  {packIncludes.map((item, i) => (
+                    <p key={i} className="flex items-start gap-3">
+                      <CheckCircle className="text-glow w-5 h-5 flex-shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </p>
+                  ))}
                 </div>
               </LiquidGlassCard>
             </motion.div>
@@ -157,15 +173,15 @@ export function ServicesSection() {
               viewport={{ once: true }}
               className="text-center"
             >
-              <h3 className="text-2xl font-light mb-2">
-                Les <span className="text-glow">outils inclus</span>
+              <h3 className="text-2xl md:text-3xl font-light mb-3">
+                Les <span className="text-glow">6 outils disponibles</span>
               </h3>
-              <p className="text-sm text-muted-foreground">
-                4 outils qui changent tout
+              <p className="text-muted-foreground">
+                Choisissez 3 applications adaptées à votre métier
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {tools.map((tool, index) => (
                 <motion.button
                   key={tool.id}
@@ -174,36 +190,22 @@ export function ServicesSection() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   onClick={() => setSelectedTool(tool.id)}
-                  className="p-6 rounded-2xl text-left glass-card-glow hover:shadow-glow transition-all h-full group"
+                  className="p-6 rounded-2xl text-left glass-card-glow hover:shadow-glow transition-all group"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span className="text-4xl block mb-4">{tool.icon}</span>
+                  <div className={`w-14 h-14 rounded-xl ${tool.color} flex items-center justify-center mb-4`}>
+                    <tool.Icon className="text-white w-7 h-7" />
+                  </div>
                   <p className="font-semibold text-lg mb-2">{tool.title}</p>
-                  <p className="text-sm text-muted-foreground mb-3">{tool.desc}</p>
-                  <p className="text-lg text-glow font-bold">{tool.gain}</p>
-                  <span className="inline-flex items-center gap-1 text-xs text-muted-foreground mt-3 group-hover:text-glow transition-colors">
+                  <p className="text-sm text-muted-foreground">{tool.desc}</p>
+                  <span className="inline-flex items-center gap-1 text-xs text-muted-foreground mt-4 group-hover:text-glow transition-colors">
                     En savoir plus <ArrowRight className="w-3 h-3" />
                   </span>
                 </motion.button>
               ))}
             </div>
 
-            {/* Total en bas */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="mt-8 text-center"
-            >
-              <LiquidGlassCard className="p-6 inline-block" hover={false}>
-                <p className="text-sm text-muted-foreground mb-1">Total temps gagné</p>
-                <p className="text-3xl font-bold text-glow">+10h/semaine</p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  C'est un dimanche entier retrouvé
-                </p>
-              </LiquidGlassCard>
-            </motion.div>
           </div>
         </div>
       </div>
@@ -236,9 +238,11 @@ export function ServicesSection() {
                 if (!tool) return null
                 return (
                   <>
-                    <span className="text-5xl block mb-4">{tool.icon}</span>
-                    <h3 className="text-2xl font-semibold mb-2">{tool.title}</h3>
-                    <p className="text-2xl text-glow font-bold mb-4">{tool.gain}</p>
+                    <div className={`w-16 h-16 rounded-xl ${tool.color} flex items-center justify-center mb-4`}>
+                      <tool.Icon className="text-white w-8 h-8" />
+                    </div>
+                    <h3 className="text-2xl font-semibold mb-4">{tool.title}</h3>
+                    <p className="text-sm text-glow font-medium mb-4">{tool.desc}</p>
                     <p className="text-muted-foreground leading-relaxed">
                       {tool.details}
                     </p>
