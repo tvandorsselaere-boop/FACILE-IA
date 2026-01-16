@@ -67,25 +67,26 @@ export function ServicesSection() {
 
   return (
     <section id="services" className="snap-section relative">
-      <div className="w-full max-w-7xl mx-auto">
+      <div className="container-site">
         
-        {/* Header avec plus d'espace */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-light mb-4">
-            Le <span className="text-glow">Pack Sérénité Numérique</span>
-          </h2>
-          <p className="text-xl text-glow/80 font-medium mb-4">
-            20 ans d'expertise Airbus Helicopters
-          </p>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Stack propriétaires Python/Next.js/Claude/Cursor pour digitaliser les PME avec une rigueur aéronautique
-          </p>
-        </motion.div>
+        {/* Header */}
+        <div className="section-header">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2>
+              Le <span className="text-glow">Pack Sérénité Numérique</span>
+            </h2>
+            <p className="text-xl text-glow/80 font-medium mb-3">
+              20 ans d'expertise Airbus Helicopters
+            </p>
+            <p className="text-muted-foreground">
+              Stack propriétaires Python/Next.js/Claude/Cursor pour digitaliser les PME avec une rigueur aéronautique
+            </p>
+          </motion.div>
+        </div>
 
         {/* Layout : EMPILÉ verticalement pour plus d'espace */}
         <div className="space-y-12">
@@ -166,12 +167,12 @@ export function ServicesSection() {
           </motion.div>
 
           {/* Section Outils */}
-          <div className="space-y-8">
+          <div className="mb-16">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center"
+              className="text-center mb-10"
             >
               <h3 className="text-2xl md:text-3xl font-light mb-3">
                 Les <span className="text-glow">6 outils disponibles</span>
@@ -181,7 +182,7 @@ export function ServicesSection() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid-3">
               {tools.map((tool, index) => (
                 <motion.button
                   key={tool.id}
@@ -190,7 +191,7 @@ export function ServicesSection() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   onClick={() => setSelectedTool(tool.id)}
-                  className="p-6 rounded-2xl text-left glass-card-glow hover:shadow-glow transition-all group"
+                  className="card-nxera text-left hover:shadow-glow transition-all group cursor-pointer"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -205,7 +206,78 @@ export function ServicesSection() {
                 </motion.button>
               ))}
             </div>
+          </div>
 
+          {/* ROI Section intégrée */}
+          <div className="section-spacing">
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-2xl md:text-3xl text-center mb-12"
+            >
+              💡 ROI Client : <span className="text-glow">Temps Gagné</span>
+            </motion.h3>
+
+            <div className="grid-2 max-w-4xl mx-auto mb-10">
+              <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+                <LiquidGlassCard className="p-10 text-center border-2 border-white/20" hover={false}>
+                  <span className="text-muted-foreground uppercase text-sm font-medium">Avant</span>
+                  <p className="text-6xl font-bold text-muted-foreground my-6">12h</p>
+                  <p className="text-lg text-muted-foreground mb-2">par semaine</p>
+                  <p className="text-sm text-muted-foreground/60">Tâches admin manuelles</p>
+                </LiquidGlassCard>
+              </motion.div>
+
+              <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+                <LiquidGlassCard className="p-10 text-center bg-gradient-to-br from-glow/20 to-glow/10 border-2 border-glow" hover={false}>
+                  <span className="text-glow uppercase text-sm font-medium">Après ✅</span>
+                  <p className="text-6xl font-bold text-glow my-6">2h</p>
+                  <p className="text-lg text-glow/80 mb-2">par semaine</p>
+                  <p className="text-sm text-glow/60">Automatisé par IA</p>
+                </LiquidGlassCard>
+              </motion.div>
+            </div>
+
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mx-auto">
+              <LiquidGlassCard className="p-10 text-center bg-gradient-to-r from-green-500/20 to-green-600/10 border-2 border-green-500/50" hover={false}>
+                <p className="text-6xl font-bold text-green-400 mb-4">83%</p>
+                <p className="text-xl text-green-300 mb-2">Réduction du temps administratif</p>
+                <p className="text-sm text-green-200/60">≈ 520h économisées par an</p>
+              </LiquidGlassCard>
+            </motion.div>
+          </div>
+
+          {/* Why Section intégrée */}
+          <div className="section-spacing">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-3xl mx-auto">
+              <LiquidGlassCard className="p-10 bg-gradient-to-br from-orange-500 to-orange-600 border-0" hover={false}>
+                <h3 className="text-white font-bold text-2xl md:text-3xl mb-8">🎯 Pourquoi Facile-IA ?</h3>
+                <ul className="space-y-6">
+                  <li className="flex items-start gap-4">
+                    <CheckCircle className="text-white/80 w-6 h-6 flex-shrink-0 mt-1" />
+                    <div>
+                      <strong className="text-white text-lg">Fiabilité Aéro</strong>
+                      <span className="text-white/90"> : Rigueur Airbus Helicopters appliquée à vos outils digitaux</span>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <CheckCircle className="text-white/80 w-6 h-6 flex-shrink-0 mt-1" />
+                    <div>
+                      <strong className="text-white text-lg">Rapidité</strong>
+                      <span className="text-white/90"> : POC livrés en jours, pas en mois</span>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <CheckCircle className="text-white/80 w-6 h-6 flex-shrink-0 mt-1" />
+                    <div>
+                      <strong className="text-white text-lg">Transparence</strong>
+                      <span className="text-white/90"> : ROI immédiat et mesurable sur chaque outil</span>
+                    </div>
+                  </li>
+                </ul>
+              </LiquidGlassCard>
+            </motion.div>
           </div>
         </div>
       </div>
