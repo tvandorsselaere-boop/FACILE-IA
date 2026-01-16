@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Variables CSS pour light mode */
+/* ===== VARIABLES CSS ===== */
 :root {
   --background: 0 0% 100%;
   --foreground: 0 0% 3.9%;
@@ -34,8 +34,6 @@
   --glow-hex: #3B82F6;
 }
 
-/* Variables CSS pour dark mode */
-
 .dark {
   --background: 222 47% 6%;
   --foreground: 0 0% 98%;
@@ -68,19 +66,15 @@
   --glow-hex: #EF4444;
 }
 
+/* ===== BASE STYLES ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* ===== SNAP SCROLL ===== */
 html {
-  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  overflow-y: scroll;
-  height: 100%;
-  width: 100%;
   background-color: hsl(0 0% 100%);
 }
 
@@ -95,353 +89,21 @@ body {
   color: hsl(var(--foreground));
   transition: background-color 0.3s ease, color 0.3s ease;
   min-height: 100vh;
-  width: 100%;
-  max-width: 100%;
   overflow-x: hidden;
 }
 
-.snap-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  min-height: 100vh;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 120px 1rem 4rem 1rem; /* Augmenté pour plus d'espace */
-  position: relative;
-  overflow: visible;
+/* Main content padding for fixed header */
+main {
+  padding-top: 80px;
 }
 
-@media (min-width: 1024px) {
-  .snap-section {
-    padding: 140px 2rem 6rem 2rem;
-  }
-}
-
-/* Désactiver snap scroll sur mobile */
-@media (max-width: 768px) {
-  html {
-    scroll-snap-type: none;
-  }
-  .snap-section {
-    min-height: auto;
-    height: auto;
-    scroll-snap-align: none;
-    padding: 8rem 1rem 5rem 1rem;
-  }
-}
-
-/* Full width container */
-.full-width-container {
-  width: 100%;
-  max-width: 100%;
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
-@media (min-width: 1024px) {
-  .full-width-container {
-    padding-left: 4rem;
-    padding-right: 4rem;
-  }
-}
-
-@media (min-width: 1440px) {
-  .full-width-container {
-    padding-left: 6rem;
-    padding-right: 6rem;
-  }
-}
-
-/* ===== ANIMATIONS GLOBALES ===== */
-
-/* Glow pulsant */
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(59, 130, 246, 0.6), 0 0 60px rgba(59, 130, 246, 0.3);
-  }
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-/* Gradient animé pour backgrounds */
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient-shift 8s ease infinite;
-}
-
-/* Floating animation */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-/* Shine effect pour boutons */
-@keyframes shine {
-  0% {
-    transform: translateX(-100%) skewX(-15deg);
-  }
-  100% {
-    transform: translateX(200%) skewX(-15deg);
-  }
-}
-
-.btn-shine::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  transform: translateX(-100%) skewX(-15deg);
-}
-
-.btn-shine:hover::after {
-  animation: shine 0.8s ease-in-out;
-}
-
-/* Glow adaptatif */
-.glow-blue {
-  box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-}
-
-.glow-blue:hover {
-  box-shadow: 0 0 50px rgba(59, 130, 246, 0.5), 0 0 80px rgba(59, 130, 246, 0.3);
-}
-
-/* Liquid Glass base class */
-.liquid-glass {
-  background: linear-gradient(135deg, 
-    rgba(255,255,255,0.1) 0%, 
-    rgba(255,255,255,0.05) 50%,
-    rgba(0,0,0,0.05) 100%);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255,255,255,0.18);
-  box-shadow: 
-    0 8px 32px rgba(0,0,0,0.1),
-    inset 0 1px 0 rgba(255,255,255,0.2);
-}
-
-/* Mask gradient pour les bords */
-.mask-gradient-bottom {
-  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-}
-
-/* Badge styles */
-.badge-orange {
-  @apply bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium;
-}
-
-.badge-outline {
-  @apply border border-white/30 text-white/70 px-2 py-0.5 rounded-full text-xs;
-}
-
-/* ===== LAYOUT SYSTEM ===== */
-
-/* Container principal - centré avec max-width */
-.container-site {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-@media (min-width: 1400px) {
-  .container-site {
-    max-width: 1400px;
-    padding: 0 2rem;
-  }
-}
-
-/* Sections avec espacement généreux */
-.section-spacing {
-  padding: 4rem 0;
-}
-
-@media (min-width: 768px) {
-  .section-spacing {
-    padding: 6rem 0;
-  }
-}
-
-/* Header centré de section */
-.section-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-@media (min-width: 768px) {
-  .section-header {
-    margin-bottom: 4rem;
-  }
-}
-
-.section-header h2 {
-  font-size: 1.875rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-@media (min-width: 768px) {
-  .section-header h2 {
-    font-size: 2.5rem;
-  }
-}
-
-.section-header p {
-  color: hsl(var(--muted-foreground));
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* ===== GRILLES DE CARDS ===== */
-
-/* Grille 3 colonnes */
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .grid-3 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .grid-3 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* Grille 2 colonnes */
-.grid-2 {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .grid-2 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Grille 4 colonnes (pour stack technique) */
-.grid-4 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-}
-
-@media (min-width: 1024px) {
-  .grid-4 {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-/* Grille 6 colonnes (outils) */
-.grid-6 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .grid-6 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .grid-6 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* ===== CARDS STYLE NXERA ===== */
-
-.card-nxera {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1rem;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-}
-
-.dark .card-nxera {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
-.card-nxera:hover {
-  border-color: rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.card-highlight {
-  border-left: 3px solid #f97316;
-}
-
-/* Scrollbar custom */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.3);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(59, 130, 246, 0.5);
-}
-
-/* ===== CLASSES UTILITAIRES GLOW ===== */
+/* ===== GLOW UTILITIES ===== */
 .text-glow {
   color: rgb(var(--glow-color));
 }
 
 .bg-glow {
   background-color: rgb(var(--glow-color));
-}
-
-.bg-glow\/20 {
-  background-color: var(--glow-color-20);
 }
 
 .border-glow {
@@ -456,6 +118,7 @@ body {
   box-shadow: 0 0 50px var(--glow-color-50), 0 0 80px var(--glow-color-30);
 }
 
+/* Glass effect for header */
 .glass-card-glow {
   background: linear-gradient(135deg, 
     rgba(255,255,255,0.08) 0%, 
@@ -464,24 +127,36 @@ body {
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--glow-color-30);
-  box-shadow: 
-    0 0 40px var(--glow-color-20),
-    inset 0 1px 0 rgba(255,255,255,0.15);
+  box-shadow: 0 0 40px var(--glow-color-20), inset 0 1px 0 rgba(255,255,255,0.15);
 }
 
 .glass-card-glow:hover {
-  box-shadow: 
-    0 0 60px var(--glow-color-40),
-    inset 0 1px 0 rgba(255,255,255,0.2);
+  box-shadow: 0 0 60px var(--glow-color-40), inset 0 1px 0 rgba(255,255,255,0.2);
 }
 
-.btn-glow {
-  background-color: rgb(var(--glow-color));
-  box-shadow: 0 0 30px var(--glow-color-40);
-  transition: all 0.3s ease;
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.btn-glow:hover {
-  box-shadow: 0 0 50px var(--glow-color-60), 0 0 80px var(--glow-color-30);
-  transform: scale(1.05);
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--glow-color-30);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--glow-color-50);
+}
+
+/* Hide scrollbar for carousel */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

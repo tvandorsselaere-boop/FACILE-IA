@@ -1,8 +1,7 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { Star, Quote } from "lucide-react"
-import { LiquidGlassCard } from "@/components/ui/LiquidGlassCard"
+import { PageSection, SectionHeader, Carousel, FeatureCard } from "@/components/layout"
 
 const testimonials = [
   {
@@ -36,79 +35,49 @@ const testimonials = [
 
 export function TestimonialsSection() {
   return (
-    <section id="testimonials" className="snap-section relative">
-      <div className="max-w-7xl mx-auto flex flex-col justify-center">
-        
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-light mb-4">
-            Ils nous font <span className="text-glow">confiance</span>
-          </h2>
-          <p className="text-muted-foreground">
-            Des artisans et PME comme vous
-          </p>
-        </motion.div>
+    <PageSection id="testimonials">
+      <SectionHeader
+        title="Ils nous font"
+        titleHighlight="confiance"
+        subtitle="Des artisans et PME comme vous"
+      />
 
-        {/* Témoignages - EMPILÉS pour plus d'espace */}
-        <div className="space-y-6 max-w-3xl mx-auto">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <LiquidGlassCard className="p-8 flex items-center gap-6">
-                {/* Avatar grand */}
-                <div className="w-20 h-20 rounded-full glass-card-glow flex items-center justify-center text-4xl flex-shrink-0">
-                  {testimonial.avatar}
-                </div>
-                
-                <div className="flex-1">
-                  {/* Quote icon */}
-                  <Quote className="w-6 h-6 text-glow/30 mb-3" />
-                  
-                  {/* Texte */}
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    "{testimonial.text}"
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    {/* Auteur */}
-                    <div>
-                      <p className="font-semibold text-lg">{testimonial.name}</p>
-                      <p className="text-sm text-muted-foreground">{testimonial.role} • {testimonial.company}</p>
-                    </div>
-                    
-                    {/* Rating */}
-                    <div className="flex gap-1">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 fill-glow text-glow" />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </LiquidGlassCard>
-            </motion.div>
-          ))}
-        </div>
+      <Carousel itemWidth="w-[340px] md:w-[400px]">
+        {testimonials.map((testimonial) => (
+          <FeatureCard key={testimonial.id} className="h-full flex flex-col">
+            {/* Quote */}
+            <Quote className="w-8 h-8 text-glow/30 mb-4" />
+            
+            {/* Text */}
+            <p className="text-muted-foreground flex-1 leading-relaxed mb-6">
+              "{testimonial.text}"
+            </p>
+            
+            {/* Rating */}
+            <div className="flex gap-1 mb-4">
+              {[...Array(testimonial.rating)].map((_, i) => (
+                <Star key={i} className="w-4 h-4 fill-glow text-glow" />
+              ))}
+            </div>
+            
+            {/* Author */}
+            <div className="flex items-center gap-3 pt-4 border-t border-border">
+              <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center text-2xl">
+                {testimonial.avatar}
+              </div>
+              <div>
+                <p className="font-semibold">{testimonial.name}</p>
+                <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                <p className="text-xs text-glow">{testimonial.company}</p>
+              </div>
+            </div>
+          </FeatureCard>
+        ))}
+      </Carousel>
 
-        {/* Note de démo */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center mt-8 text-sm text-muted-foreground/50 italic"
-        >
-          * Témoignages de démonstration - Section en cours de développement
-        </motion.p>
-      </div>
-    </section>
+      <p className="text-center mt-8 text-sm text-muted-foreground/50 italic">
+        * Témoignages de démonstration
+      </p>
+    </PageSection>
   )
 }
