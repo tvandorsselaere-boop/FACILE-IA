@@ -5,8 +5,9 @@ import { motion } from "framer-motion"
 import { ChevronUp, ChevronDown } from "lucide-react"
 
 const sections = [
-  { id: "hero", label: "Facile-IA" },
-  { id: "services", label: "Offres" },
+  { id: "hero", label: "Accueil" },
+  { id: "services", label: "Pack" },
+  { id: "roi", label: "ROI" },
   { id: "testimonials", label: "Témoignages" },
   { id: "contact", label: "Contact" },
 ]
