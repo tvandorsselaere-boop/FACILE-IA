@@ -1,41 +1,37 @@
+import type React from "react"
 import type { Metadata } from "next"
-import { ThemeProvider } from "next-themes"
+import { Geist } from "next/font/google"
+import Script from "next/script"
+import { Analytics } from "@vercel/analytics/next"
+import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
+const geist = Geist({ subsets: ["latin"] })
+
 export const metadata: Metadata = {
-  title: "facile-IA | Digitalisation PME",
-  description: "20 ans d'expertise Airbus appliqués à l'IA",
+  title: "FACILE-IA - Solutions d'IA pour votre entreprise",
+  description:
+    "Agence d'IA spécialisée dans les solutions d'intelligence artificielle pour les entreprises. Découvrez WolfEdge et FEAsy, nos deux projets innovants.",
+  generator: "v0.app",
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: React.React.ReactNode }) {
   return (
     <html lang="fr" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                const theme = localStorage.getItem('facile-ia-theme') || 'dark';
-                if (theme === 'dark') {
-                  document.documentElement.classList.add('dark');
-                } else {
-                  document.documentElement.classList.remove('dark');
-                }
-              } catch (e) {}
-            `,
-          }}
-        />
-      </head>
-      <body>
+      <body className={`${geist.className} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem={false}
-          storageKey="facile-ia-theme"
-          disableTransitionOnChange={false}
+          disableTransitionOnChange
         >
           {children}
+          <Analytics />
         </ThemeProvider>
+        <Script
+          src="https://assets.calendly.com/assets/external/widget.js"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   )

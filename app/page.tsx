@@ -1,19 +1,25 @@
-import { Header } from "@/components/Header"
-import { HeroSection } from "@/components/sections/HeroSection"
-import { ServicesSection } from "@/components/sections/ServicesSection"
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection"
-import { ContactSection } from "@/components/sections/ContactSection"
+import { Header } from "@/components/header"
+import { Hero } from "@/components/hero"
+import { Services } from "@/components/services"
+import { Testimonials } from "@/components/testimonials"
+import { Pricing } from "@/components/pricing"
+import { Contact } from "@/components/contact"
+import { Footer } from "@/components/footer"
+import { SpotlightEffect } from "@/components/spotlight-effect"
 
 export default function Home() {
   return (
-    <>
+    <main className="bg-background relative">
+      {/* Spotlight global qui suit la souris sur toute la page */}
+      <SpotlightEffect />
+      
       <Header />
-      <main>
-        <HeroSection />
-        <ServicesSection />
-        <TestimonialsSection />
-        <ContactSection />
-      </main>
-    </>
+      <Hero />
+      <Services />
+      <Testimonials />
+      <Pricing />
+      <Contact />
+      <Footer />
+    </main>
   )
 }
