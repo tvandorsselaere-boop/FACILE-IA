@@ -7,13 +7,12 @@ import Link from "next/link"
 import { ArrowLeft, Mail, Phone, MessageCircle, MapPin, Calendar } from "lucide-react"
 
 export default function ContactPage() {
-  // ⚠️ REMPLACER PAR TES VRAIES INFOS
   const calendlyUrl = "https://calendly.com/facile-ia/decouverte"
   const contactInfo = {
     email: "contact@facile-ia.fr",
-    phone: "+33 6 XX XX XX XX",
-    whatsapp: "336XXXXXXXX",
-    location: "Région PACA, France",
+    phone: "06 10 02 64 50",
+    whatsapp: "33610026450",
+    location: "Puyloubier — Région PACA, France",
   }
   const socialLinks = {
     linkedin: "https://linkedin.com/company/facile-ia",

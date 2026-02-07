@@ -131,30 +131,34 @@ export function LogoHero() {
     const cellWidth = totalWidth / totalLetters
     const cellHeight = container.clientHeight
 
+    // Extra width on each side so particles aren't clipped at canvas edges
+    const overflowPx = cellWidth * 0.3
+
     letters.forEach((letter, index) => {
       const canvas = document.createElement('canvas')
+      const canvasWidth = cellWidth + overflowPx * 2
       canvas.style.position = 'absolute'
-      canvas.style.left = `${index * cellWidth}px`
+      canvas.style.left = `${index * cellWidth - overflowPx}px`
       canvas.style.top = '0'
-      canvas.style.width = `${cellWidth}px`
+      canvas.style.width = `${canvasWidth}px`
       canvas.style.height = `${cellHeight}px`
       // Use device pixel ratio for sharper rendering
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
-      canvas.width = Math.floor(cellWidth * dpr)
+      canvas.width = Math.floor(canvasWidth * dpr)
       canvas.height = Math.floor(cellHeight * dpr)
       container.appendChild(canvas)
 
       const scene = new THREE.Scene()
-      const camera = new THREE.PerspectiveCamera(75, cellWidth / cellHeight, 0.1, 1000)
-      const renderer = new THREE.WebGLRenderer({ 
-        canvas, 
-        antialias: true, 
+      const camera = new THREE.PerspectiveCamera(75, canvasWidth / cellHeight, 0.1, 1000)
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
         alpha: true,
         powerPreference: 'high-performance',
         failIfMajorPerformanceCaveat: false
       })
       renderer.setPixelRatio(dpr)
-      renderer.setSize(cellWidth, cellHeight)
+      renderer.setSize(canvasWidth, cellHeight)
       renderer.setClearColor(0x000000, 0)
 
       const numParticles = letter.char === 'I' || letter.char === '-' ? 1500 : 3500
@@ -240,19 +244,21 @@ export function LogoHero() {
       const cellWidth = totalWidth / totalLetters
       const cellHeight = container.clientHeight
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      const overflowPxR = cellWidth * 0.3
 
       scenes.forEach((sceneData, index) => {
         const canvas = container.children[index] as HTMLCanvasElement
-        canvas.width = Math.floor(cellWidth * dpr)
+        const canvasWidth = cellWidth + overflowPxR * 2
+        canvas.width = Math.floor(canvasWidth * dpr)
         canvas.height = Math.floor(cellHeight * dpr)
-        canvas.style.width = `${cellWidth}px`
+        canvas.style.width = `${canvasWidth}px`
         canvas.style.height = `${cellHeight}px`
-        canvas.style.left = `${index * cellWidth}px`
+        canvas.style.left = `${index * cellWidth - overflowPxR}px`
 
-        sceneData.camera.aspect = cellWidth / cellHeight
+        sceneData.camera.aspect = canvasWidth / cellHeight
         sceneData.camera.updateProjectionMatrix()
         sceneData.renderer.setPixelRatio(dpr)
-        sceneData.renderer.setSize(cellWidth, cellHeight)
+        sceneData.renderer.setSize(canvasWidth, cellHeight)
       })
     }
 
@@ -345,7 +351,7 @@ export function LogoHero() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full"
+      className="relative w-full h-full overflow-visible"
       style={{ pointerEvents: 'auto' }}
       />
   )
