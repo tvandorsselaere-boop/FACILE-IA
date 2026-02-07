@@ -4,13 +4,13 @@ Checklist des comptes à créer et actions à mener pour être opérationnel et 
 
 ---
 
-## 1. Email professionnel — contact@facile-ia.fr
+## 1. Email professionnel — thomas@facile-ia.fr
 
 Tu as le nom de domaine `facile-ia.fr`. Il faut maintenant activer une boîte mail dessus.
 
 **Options :**
-- **Option A — OVH Mail (si ton domaine est chez OVH)** : Va dans ton espace client OVH > Emails > Créer une adresse email `contact@facile-ia.fr`. Inclus dans la plupart des hébergements OVH.
-- **Option B — Google Workspace** (~6€/mois) : Va sur [workspace.google.com](https://workspace.google.com), achète le plan Business Starter, ajoute ton domaine et crée `contact@facile-ia.fr`. Avantage : Gmail pro + Google Drive + Google Meet.
+- **Option A — OVH Mail (si ton domaine est chez OVH)** : Va dans ton espace client OVH > Emails > Créer une adresse email `thomas@facile-ia.fr`. Inclus dans la plupart des hébergements OVH.
+- **Option B — Google Workspace** (~6€/mois) : Va sur [workspace.google.com](https://workspace.google.com), achète le plan Business Starter, ajoute ton domaine et crée `thomas@facile-ia.fr`. Avantage : Gmail pro + Google Drive + Google Meet.
 - **Option C — Zoho Mail (gratuit pour 1 user)** : [zoho.com/mail](https://www.zoho.com/mail/). Bonne alternative gratuite.
 
 **Action** : Quel que soit le choix, il faudra ajouter des enregistrements DNS (MX, SPF, DKIM) chez ton registrar (OVH, Gandi…). Le fournisseur de mail te guidera pas à pas.
@@ -26,7 +26,7 @@ Tu as le nom de domaine `facile-ia.fr`. Il faut maintenant activer une boîte ma
    - **Catégorie** : Services informatiques / Agence digitale
    - **Description** : Agence digitale augmentée — Solutions IA pour artisans, indépendants et PME en PACA
    - **Adresse** : Puyloubier, France
-   - **Email** : contact@facile-ia.fr
+   - **Email** : thomas@facile-ia.fr
    - **Site web** : https://facile-ia.fr
 4. Configure un **message d'accueil automatique** :
    > Bonjour ! Merci de contacter Facile-IA. Nous vous répondons dans les plus brefs délais. Pour un échange rapide, n'hésitez pas à préciser votre besoin !
@@ -109,7 +109,7 @@ Vercel déploiera automatiquement si le repo est connecté.
 |---|--------|-------------|----------|
 | 1 | WhatsApp Business | 10 min | Immédiat |
 | 2 | Déployer le site + domaine Vercel | 20 min | Immédiat |
-| 3 | Email contact@facile-ia.fr | 30 min | Ce weekend |
+| 3 | Email thomas@facile-ia.fr | 30 min | Ce weekend |
 | 4 | Google Business Profile | 15 min | Ce weekend |
 | 5 | Calendly | 15 min | Ce weekend |
 | 6 | Page LinkedIn | 20 min | Semaine prochaine |

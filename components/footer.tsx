@@ -49,7 +49,7 @@ export function Footer() {
             {
               title: "Contact",
               content: [
-                "contact@facile-ia.fr",
+                "thomas@facile-ia.fr",
                 "06 10 02 64 50",
                 "Puyloubier — PACA, France"
               ]

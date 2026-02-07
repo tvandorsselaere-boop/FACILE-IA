@@ -28,7 +28,7 @@ export default function Confidentialite() {
                 <li><strong className="text-foreground">Thomas VAN DORSSELAERE</strong></li>
                 <li>Micro-entrepreneur — SIRET : 982 025 827 00014</li>
                 <li>325 Chemin du Stade, Puyloubier, France</li>
-                <li>Email : contact@facile-ia.fr</li>
+                <li>Email : thomas@facile-ia.fr</li>
                 <li>Téléphone : 06 10 02 64 50</li>
               </ul>
             </section>
@@ -130,7 +130,7 @@ export default function Confidentialite() {
               </ul>
               <p className="mt-3">
                 Pour exercer ces droits, contactez-nous à :{" "}
-                <a href="mailto:contact@facile-ia.fr" className="text-accent hover:underline">contact@facile-ia.fr</a>
+                <a href="mailto:thomas@facile-ia.fr" className="text-accent hover:underline">thomas@facile-ia.fr</a>
               </p>
               <p className="mt-2">
                 Nous nous engageons à répondre dans un délai de 30 jours.

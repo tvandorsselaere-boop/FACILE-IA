@@ -31,13 +31,13 @@ export default function MentionsLegales() {
                 <li><strong className="text-foreground">Date d'immatriculation :</strong> 01/10/2023</li>
                 <li><strong className="text-foreground">Adresse :</strong> 325 Chemin du Stade, Puyloubier, France</li>
                 <li><strong className="text-foreground">Téléphone :</strong> 06 10 02 64 50</li>
-                <li><strong className="text-foreground">Email :</strong> contact@facile-ia.fr</li>
+                <li><strong className="text-foreground">Email :</strong> thomas@facile-ia.fr</li>
               </ul>
             </section>
 
             <section>
               <h2 className="text-xl font-semibold text-foreground mb-3">2. Directeur de la publication</h2>
-              <p>Thomas VAN DORSSELAERE — contact@facile-ia.fr</p>
+              <p>Thomas VAN DORSSELAERE — thomas@facile-ia.fr</p>
             </section>
 
             <section>

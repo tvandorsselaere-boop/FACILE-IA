@@ -15,7 +15,7 @@ const fadeUp = (delay: number) => ({
 export function LandingTemporaire() {
   const phone = "06 10 02 64 50"
   const phoneLink = "tel:+33610026450"
-  const email = "contact@facile-ia.fr"
+  const email = "thomas@facile-ia.fr"
   const whatsappNumber = "33610026450"
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=Bonjour, je souhaite en savoir plus sur vos services.`
 
@@ -226,7 +226,7 @@ export function LandingTemporaire() {
               <a href={`mailto:${email}`}>
                 <Button variant="liquidGlass" size="lg" className="w-full sm:w-auto liquid-glass-btn-outline">
                   <Mail className="mr-2" size={20} />
-                  contact@facile-ia.fr
+                  thomas@facile-ia.fr
                 </Button>
               </a>
             </div>

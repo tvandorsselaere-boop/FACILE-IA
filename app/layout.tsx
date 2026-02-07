@@ -82,7 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           "Agence digitale augmentée — Solutions numériques et IA pour artisans, indépendants et PME en région PACA.",
         url: "https://facile-ia.fr",
         telephone: "+33610026450",
-        email: "contact@facile-ia.fr",
+        email: "thomas@facile-ia.fr",
         address: {
           "@type": "PostalAddress",
           streetAddress: "325 Chemin du Stade",

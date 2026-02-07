@@ -9,7 +9,7 @@ import { ArrowLeft, Mail, Phone, MessageCircle, MapPin, Calendar } from "lucide-
 export default function ContactPage() {
   const calendlyUrl = "https://calendly.com/facile-ia/decouverte"
   const contactInfo = {
-    email: "contact@facile-ia.fr",
+    email: "thomas@facile-ia.fr",
     phone: "06 10 02 64 50",
     whatsapp: "33610026450",
     location: "Puyloubier — Région PACA, France",
