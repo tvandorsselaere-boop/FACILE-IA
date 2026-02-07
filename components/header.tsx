@@ -73,7 +73,7 @@ export function Header() {
                 className="hidden sm:inline-flex liquid-glass-btn-primary"
                 asChild
               >
-                <Link href="/contact">Réserver un appel</Link>
+                <Link href="/contact">Nous contacter</Link>
               </Button>
             </motion.div>
           </div>

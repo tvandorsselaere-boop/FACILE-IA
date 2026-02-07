@@ -1,7 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Geist } from "next/font/google"
-import Script from "next/script"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CookieConsent } from "@/components/cookie-consent"
 import { AnalyticsWrapper } from "@/components/analytics-wrapper"
@@ -162,10 +161,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <CookieConsent />
           <AnalyticsWrapper />
         </ThemeProvider>
-        <Script
-          src="https://assets.calendly.com/assets/external/widget.js"
-          strategy="lazyOnload"
-        />
       </body>
     </html>
   )
