@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Mail, Phone, MapPin, MessageCircle, Sparkles, Users, Globe, Wrench } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -11,6 +12,31 @@ const fadeUp = (delay: number) => ({
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.6, delay, ease: "easeOut" as const },
 })
+
+/** Ne monte le LogoHero WebGL que sur desktop (md: 768px+) */
+function LogoDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 768)
+    check()
+    window.addEventListener("resize", check)
+    return () => window.removeEventListener("resize", check)
+  }, [])
+
+  if (!isDesktop) return null
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+      className="h-96 w-full mx-auto mb-6"
+    >
+      <LogoHero />
+    </motion.div>
+  )
+}
 
 export function LandingTemporaire() {
   const phone = "06 10 02 64 50"
@@ -28,22 +54,15 @@ export function LandingTemporaire() {
         <div className="relative z-10 max-w-6xl w-full mx-auto text-center">
           {/* Badge */}
           <motion.div {...fadeUp(0)} className="inline-block mb-4">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-semibold">
-              <Sparkles size={16} />
-              Nouvelle agence — Ouverture 2026
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs sm:text-sm font-semibold">
+              <Sparkles size={14} className="sm:w-4 sm:h-4 flex-shrink-0" />
+              <span>Nouvelle agence — 2026</span>
             </span>
           </motion.div>
 
-          {/* Logo animé */}
-          {/* Logo animé sur desktop, texte sur mobile */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-            className="hidden md:block h-96 w-full mx-auto mb-6"
-          >
-            <LogoHero />
-          </motion.div>
+          {/* Logo animé sur desktop uniquement */}
+          <LogoDesktop />
+          {/* Titre texte sur mobile/tablette */}
           <motion.h1
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
