@@ -35,14 +35,23 @@ export function LandingTemporaire() {
           </motion.div>
 
           {/* Logo animé */}
+          {/* Logo animé sur desktop, texte sur mobile */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-            className="h-64 sm:h-80 md:h-96 w-full mx-auto mb-6"
+            className="hidden md:block h-96 w-full mx-auto mb-6"
           >
             <LogoHero />
           </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            className="md:hidden text-5xl sm:text-6xl font-bold mb-6 tracking-tight"
+          >
+            FACILE-<span className="text-accent">IA</span>
+          </motion.h1>
 
           {/* Tagline */}
           <motion.p
@@ -54,7 +63,7 @@ export function LandingTemporaire() {
 
           <motion.p
             {...fadeUp(0.4)}
-            className="text-base sm:text-lg text-muted-foreground/80 mb-10 mx-auto max-w-4xl whitespace-nowrap"
+            className="text-base sm:text-lg md:whitespace-nowrap text-muted-foreground/80 mb-10 mx-auto max-w-4xl"
           >
             Des solutions numériques performantes, à des tarifs accessibles, avec un vrai contact humain.
           </motion.p>
