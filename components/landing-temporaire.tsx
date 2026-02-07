@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Mail, Phone, MapPin, MessageCircle, ArrowRight, Sparkles, Users, Globe, Wrench } from "lucide-react"
+import { Mail, Phone, MapPin, MessageCircle, Sparkles, Users, Globe, Wrench } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LogoHero } from "@/components/LogoHero"
 import { motion } from "framer-motion"
@@ -280,9 +280,17 @@ export function LandingTemporaire() {
             </div>
           </div>
 
-          {/* Copyright */}
-          <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Facile-IA. Tous droits réservés.
+          {/* Copyright + Liens légaux */}
+          <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+            <p>© {new Date().getFullYear()} Facile-IA. Tous droits réservés.</p>
+            <div className="flex gap-6">
+              <Link href="/mentions-legales" className="hover:text-foreground transition-colors">
+                Mentions légales
+              </Link>
+              <Link href="/confidentialite" className="hover:text-foreground transition-colors">
+                Confidentialité
+              </Link>
+            </div>
           </div>
         </div>
       </section>

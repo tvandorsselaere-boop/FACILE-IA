@@ -50,8 +50,8 @@ export function Footer() {
               title: "Contact",
               content: [
                 "contact@facile-ia.fr",
-                "+33 6 XX XX XX XX",
-                "Région PACA, France"
+                "06 10 02 64 50",
+                "Puyloubier — PACA, France"
               ]
             }
           ].map((column, index) => (
@@ -99,14 +99,14 @@ export function Footer() {
             &copy; {new Date().getFullYear()} FACILE-IA. Tous droits réservés.
           </p>
           <div className="flex gap-6 text-sm">
-            <a href="#" className="relative text-muted-foreground hover:text-foreground transition-colors group">
+            <Link href="/mentions-legales" className="relative text-muted-foreground hover:text-foreground transition-colors group">
               Mentions légales
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
-            </a>
-            <a href="#" className="relative text-muted-foreground hover:text-foreground transition-colors group">
+            </Link>
+            <Link href="/confidentialite" className="relative text-muted-foreground hover:text-foreground transition-colors group">
               Confidentialité
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
