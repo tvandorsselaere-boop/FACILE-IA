@@ -137,7 +137,7 @@ export function LandingTemporaire() {
               {
                 icon: Sparkles,
                 title: "IA accessible",
-                desc: "Des outils d'intelligence artificielle pensés pour les pros, pas les ingénieurs. Simples, efficaces, abordables.",
+                desc: "Des outils d'intelligence artificielle pensés pour les pros. Simples, efficaces, abordables.",
               },
               {
                 icon: Users,
